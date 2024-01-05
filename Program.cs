@@ -1,3 +1,4 @@
+//Este archivo es para configurar todo!! Es el ARCHIVO INICIAL - NO TOCAR!!
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
@@ -10,7 +11,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:4200").AllowAnyHeader()
+                          policy.WithOrigins("http://localhost:4200", "http://localhost:5229").AllowAnyHeader()
                             .AllowAnyMethod();
                       });
 });
