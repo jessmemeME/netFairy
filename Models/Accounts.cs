@@ -1,16 +1,19 @@
-﻿namespace FairyBE.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FairyBE.Models
 {
     public class Accounts
     {
         public int id { get; set; }
-        public required string password { get; set; }
-        public required Boolean is_superuser { get; set; }
-        public required string email { get; set; }
-        public required Boolean is_staff { get; set; }
-        public required Boolean is_active { get; set; }
-        public required DateTime date_joined { get; set; }
-        public required DateTime last_updated { get; set; }
-        public required DateTime last_login { get; set; }
+        [Required] public  string password { get; set; }
+        [Required] public  string firstName { get; set; }
+        [Required] public  bool is_superuser { get; set; }
+        [Required] public  string email { get; set; }
+        [Required] public  bool is_staff { get; set; }
+        [Required] public  bool is_active { get; set; }
+        [Required] public  DateTime date_joined { get; set; }
+        [Required] public  DateTime last_updated { get; set; }
+        [Required] public  DateTime last_login { get; set; }
 
         /*
             id:number;
