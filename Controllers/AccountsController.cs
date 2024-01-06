@@ -91,7 +91,15 @@ namespace FairyBE.Controllers
         {
 
             int result = -1;
-            string insertQuery = "UPDATE accounts_user  SET password = @password,last_login=@last_login, is_superuser=@is_superuser, email=@email, is_staff=@is_staff, is_active=@is_active, last_updated=now() WHERE id = @id";
+            string insertQuery = "UPDATE accounts_user  SET " +
+                "password = @password," +
+                "last_login=@last_login, " +
+                "is_superuser=@is_superuser, " +
+                "email=@email," +
+                " is_staff=@is_staff, " +
+                "is_active=@is_active, " +
+                "last_updated=now() " +
+                "WHERE id = @id";
             var queryArguments = new
             {
                 password = accounts.password,
@@ -100,7 +108,6 @@ namespace FairyBE.Controllers
                 email = accounts.email,
                 is_staff = accounts.is_staff,
                 is_active = accounts.is_active,
-                date_joined = accounts.date_joined,
                 last_updated = accounts.last_updated
             };
             try
@@ -117,5 +124,31 @@ namespace FairyBE.Controllers
             }
         }
  //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        [HttpPost("DeleteAuthGroup")]
+        public async Task<IActionResult> DeleteAuthGroup([FromBody] Accounts accounts)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM accounts_user WHERE id = @id";
+            var queryArguments = new
+            {
+                id = accounts.id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }
