@@ -1,7 +1,0 @@
-@FairyBE_HostAddress = http://localhost:5229
-
-
-GET {{FairyBE_HostAddress}}/Auth/ListAllAuthGroups
-Accept: application/json
-
-###

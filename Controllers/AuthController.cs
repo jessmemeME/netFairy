@@ -23,18 +23,19 @@ namespace FairyBE.Controllers
        
        
         private NpgsqlConnection connection;//Atributo para conectar con Postgresql
-        private readonly IConfiguration _configuration;//Para leer la configuracion inicial
+        public IConfiguration Configuration { get; }
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //CREAMOS UN CONSTRUCTOR DE LA CLASE PARA INICIALIZAR LA CONEXION A LA BD
-        public AuthController()
+        public AuthController(IConfiguration config)
         {
-            // string connectionString = _configuration.GetConnectionString("DefaultConnection");
-            string connectionString = "Host=127.0.0.1;Port=5432;Database=proyectoHadaMadrina;Username=postgres;Password=postgres;";
-
+            Configuration = config;
+            //BASE DATOS ALVARO
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             //aqui se crea la conexion a la bd
             connection = new NpgsqlConnection(connectionString);
-           
+
+            
         }
 
         //AQUI CONFIGURAMOS UN ENDPOINT (la ultima palabra de la URL que define la funcion a la que va llamar)
