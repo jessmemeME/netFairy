@@ -6,7 +6,6 @@ namespace FairyBE.Models
     {
         public int id { get; set; }
         [Required] public  string password { get; set; }
-        [Required] public  string firstName { get; set; }
         [Required] public  bool is_superuser { get; set; }
         [Required] public  string email { get; set; }
         [Required] public  bool is_staff { get; set; }
