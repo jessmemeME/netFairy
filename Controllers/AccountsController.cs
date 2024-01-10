@@ -25,9 +25,12 @@ namespace FairyBE.Controllers
     {
         private NpgsqlConnection connection;
         private readonly IConfiguration _configuration;
+
         //CREAMOS UN CONSTRUCTOR DE LA CLASE PARA INICIALIZAR LA CONEXION A LA BD
-        public AccountsController()
+        public AccountsController(IConfiguration configuration)
         {
+            _configuration = configuration;
+
             string connectionString = "Host=127.0.0.1;Port=5432;Database=proyectoHadaMadrina;Username=postgres;Password=postgres;";
 
             //aqui se crea la conexion a la bd
@@ -45,6 +48,7 @@ namespace FairyBE.Controllers
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         private async Task SendEmail(string recipientEmail, string emailSubject, string emailMessage)
         {
+            Console.WriteLine("_configuration = " + _configuration);
             var emailSettings = _configuration.GetSection("EmailSettings");
             var smtpServer = emailSettings["SmtpServer"];
             var smtpPort = int.Parse(emailSettings["SmtpPort"]);
