@@ -25,13 +25,16 @@ namespace FairyBE.Controllers
     {
         private NpgsqlConnection connection;
         private readonly IConfiguration _configuration;
-
         //CREAMOS UN CONSTRUCTOR DE LA CLASE PARA INICIALIZAR LA CONEXION A LA BD
-        public AccountsController(IConfiguration configuration)
+        public AccountsController()
         {
+<<<<<<< Updated upstream
+            string connectionString = "Host=127.0.0.1;Port=5432;Database=proyectoHadaMadrina;Username=postgres;Password=postgres;";
+=======
             _configuration = configuration;
 
-            string connectionString = "Host=127.0.0.1;Port=5432;Database=proyectoHadaMadrina;Username=postgres;Password=postgres;";
+            string connectionString = "Host=babar.db.elephantsql.com;Port=5432;Database=hdzoacnc;Username=hdzoacnc;Password=qBHkfmkyZf0a-KZ9G_i2GPS4ULBGtHIB;";
+>>>>>>> Stashed changes
 
             //aqui se crea la conexion a la bd
             connection = new NpgsqlConnection(connectionString);
@@ -46,26 +49,42 @@ namespace FairyBE.Controllers
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private async Task SendEmail(string recipientEmail, string emailSubject, string emailMessage)
+        private void SendEmail(string recipientEmail, string emailSubject, string emailMessage)
         {
-            Console.WriteLine("_configuration = " + _configuration);
+<<<<<<< Updated upstream
             var emailSettings = _configuration.GetSection("EmailSettings");
             var smtpServer = emailSettings["SmtpServer"];
             var smtpPort = int.Parse(emailSettings["SmtpPort"]);
             var smtpUsername = emailSettings["SmtpUsername"];
             var smtpPassword = emailSettings["SmtpPassword"];
             var senderEmail = emailSettings["SenderEmail"];
+=======
+            // Console.WriteLine("_configuration = " + _configuration);
+            /*  var emailSettings = _configuration.GetSection("EmailSettings");
+              var smtpServer = emailSettings["SmtpServer"];
+              var smtpPort = int.Parse(emailSettings["SmtpPort"]);
+              var smtpUsername = emailSettings["SmtpUsername"];
+              var smtpPassword = emailSettings["SmtpPassword"];
+              var senderEmail = emailSettings["SenderEmail"];
+>>>>>>> Stashed changes
 
-            var smtpClient = new SmtpClient(smtpServer)
+              var smtpClient = new SmtpClient(smtpServer)
+              {
+                  Port = smtpPort,
+                  Credentials = new NetworkCredential(smtpUsername, smtpPassword),
+                  EnableSsl = true,
+              };
+
+              var mailMessage = new MailMessage(senderEmail, recipientEmail, emailSubject, emailMessage);
+
+              await smtpClient.SendMailAsync(mailMessage);*/
+            var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
             {
-                Port = smtpPort,
-                Credentials = new NetworkCredential(smtpUsername, smtpPassword),
-                EnableSsl = true,
+                Credentials = new NetworkCredential("091141768341f1", "ef884dc1011a0e"),
+                EnableSsl = true
             };
+            client.Send("from@example.com", "to@example.com", "Hello world", "testbody");
 
-            var mailMessage = new MailMessage(senderEmail, recipientEmail, emailSubject, emailMessage);
-
-            await smtpClient.SendMailAsync(mailMessage);
         }
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -103,7 +122,7 @@ namespace FairyBE.Controllers
                     string emailSubject = "Authentication Code";
                     string emailMessage = $"Su codigo de autenticación es: {authenticationCode}";
 
-                    await SendEmail(recipientEmail, emailSubject, emailMessage);
+                    SendEmail(recipientEmail, emailSubject, emailMessage);
                 // Devuelve un mensaje específico en caso de éxito
                 return Ok(new { Result = result, Message = "Se envió el correo con éxito." });
                 }
