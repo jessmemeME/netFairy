@@ -23,22 +23,21 @@ namespace FairyBE.Controllers
     [Route("[controller]")]
     public class AccountsController : Controller
     {
-        private NpgsqlConnection connection;
-        private readonly IConfiguration _configuration;
+        private NpgsqlConnection connection;//Atributo para conectar con Postgresql
+        public IConfiguration Configuration { get; }//Se inicializa la interfaz de configuracion
+
+
+
         //CREAMOS UN CONSTRUCTOR DE LA CLASE PARA INICIALIZAR LA CONEXION A LA BD
-        public AccountsController()
+        public AccountsController(IConfiguration config)
         {
-<<<<<<< Updated upstream
-            string connectionString = "Host=127.0.0.1;Port=5432;Database=proyectoHadaMadrina;Username=postgres;Password=postgres;";
-=======
-            _configuration = configuration;
 
-            string connectionString = "Host=babar.db.elephantsql.com;Port=5432;Database=hdzoacnc;Username=hdzoacnc;Password=qBHkfmkyZf0a-KZ9G_i2GPS4ULBGtHIB;";
->>>>>>> Stashed changes
-
+            //Se asigna la interfaz de configuraciion a la configuracion local
+            Configuration = config;
+            // Se obtiene la cadena de conexion alojada en el json de configuracion
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             //aqui se crea la conexion a la bd
             connection = new NpgsqlConnection(connectionString);
-
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         private string GenerateRandomCode()
@@ -51,39 +50,27 @@ namespace FairyBE.Controllers
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         private void SendEmail(string recipientEmail, string emailSubject, string emailMessage)
         {
-<<<<<<< Updated upstream
-            var emailSettings = _configuration.GetSection("EmailSettings");
+
+            /*var emailSettings = Configuration.GetSection("EmailSettings");
             var smtpServer = emailSettings["SmtpServer"];
             var smtpPort = int.Parse(emailSettings["SmtpPort"]);
             var smtpUsername = emailSettings["SmtpUsername"];
             var smtpPassword = emailSettings["SmtpPassword"];
             var senderEmail = emailSettings["SenderEmail"];
-=======
-            // Console.WriteLine("_configuration = " + _configuration);
-            /*  var emailSettings = _configuration.GetSection("EmailSettings");
-              var smtpServer = emailSettings["SmtpServer"];
-              var smtpPort = int.Parse(emailSettings["SmtpPort"]);
-              var smtpUsername = emailSettings["SmtpUsername"];
-              var smtpPassword = emailSettings["SmtpPassword"];
-              var senderEmail = emailSettings["SenderEmail"];
->>>>>>> Stashed changes
-
               var smtpClient = new SmtpClient(smtpServer)
               {
                   Port = smtpPort,
                   Credentials = new NetworkCredential(smtpUsername, smtpPassword),
                   EnableSsl = true,
               };
-
               var mailMessage = new MailMessage(senderEmail, recipientEmail, emailSubject, emailMessage);
-
               await smtpClient.SendMailAsync(mailMessage);*/
             var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
             {
                 Credentials = new NetworkCredential("091141768341f1", "ef884dc1011a0e"),
                 EnableSsl = true
             };
-            client.Send("from@example.com", "to@example.com", "Hello world", "testbody");
+            client.Send("from@example.com", "to@example.com", emailSubject, emailMessage);
 
         }
 
@@ -110,9 +97,9 @@ namespace FairyBE.Controllers
 
                 try
                 {
-                    await connection.OpenAsync();
-                    result = await connection.ExecuteAsync(insertQuery, queryArguments);
-                    await connection.CloseAsync();
+                    connection.Open();
+                    result = connection.Execute(insertQuery, queryArguments);
+                    connection.Close();
 
                     // Generate authentication code
                     string authenticationCode = GenerateRandomCode();
