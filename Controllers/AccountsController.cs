@@ -131,7 +131,7 @@ namespace FairyBE.Controllers
             {
                 string commandText = "SELECT * FROM   accounts_user";
                 connection.Open();
-                var users = await connection.QueryAsync<Accounts>(commandText);
+                var users = connection.Query<Accounts>(commandText);
                 connection.Close();
                 return Ok(users);
 
@@ -165,7 +165,7 @@ namespace FairyBE.Controllers
             try
             {
                 connection.Open();
-                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                result = connection.Execute(insertQuery, queryArguments);
                 connection.Close();
                 return Ok(result);
             }
@@ -189,7 +189,7 @@ namespace FairyBE.Controllers
             try
             {
                 connection.Open();
-                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                result = connection.Execute(insertQuery, queryArguments);
                 connection.Close();
                 return Ok(result);
             }
