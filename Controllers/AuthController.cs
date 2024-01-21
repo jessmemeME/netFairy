@@ -120,7 +120,7 @@ namespace FairyBE.Controllers
             try {
                 string commandText = "SELECT * FROM   auth_group";
                 connection.Open();
-                var groups = connection.Query<Auth>(commandText);
+                var groups = connection.Query<Auth_Group>(commandText);
                 connection.Close();
                 return Ok(groups);
 
