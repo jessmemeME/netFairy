@@ -583,29 +583,521 @@ namespace FairyBE.Controllers
         //************************* TypeOfDiner *************************
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
+        [HttpPost("RegisterTypeOfDiner")]
+        public async Task<IActionResult> RegisterTypeOfDinerAsync([FromBody] TypeOfDiner basic_info_type_of_diner)
+        {
+            int result = -1;
+            string insertQuery = "INSERT INTO basic_info_type_of_diner (id, name, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@id,@name,@description,@created_date,@updated_date,@is_active,@created_user_id,@updated_user_id) RETURNING Id";
+            var queryArguments = new
+            {
+                id = basic_info_type_of_diner.id,
+                name = basic_info_type_of_diner.name,
+                description = basic_info_type_of_diner.description,
+                created_date = basic_info_type_of_diner.created_date,
+                updated_date = basic_info_type_of_diner.updated_date,
+                is_active = basic_info_type_of_diner.is_active,
+                created_user_id = basic_info_type_of_diner.created_user_id,
+                updated_user_id = basic_info_type_of_diner.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
 
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA EDITAR UN  REGISTRO
 
+        [HttpPost("UpdateTypeOfDiner")]
+        public async Task<IActionResult> UpdateTypeOfDiner([FromBody] TypeOfDiner basic_info_type_of_diner)
+        {
 
+            int result = -1;
+            string insertQuery = "UPDATE basic_info_type_of_diner  SET name=@name, description=@description, created_date=@created_date, updated_date=@updated_date, is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id WHERE id = @id"; var queryArguments = new
+            {
+                id = basic_info_type_of_diner.id,
+                name = basic_info_type_of_diner.name,
+                description = basic_info_type_of_diner.description,
+                created_date = basic_info_type_of_diner.created_date,
+                updated_date = basic_info_type_of_diner.updated_date,
+                is_active = basic_info_type_of_diner.is_active,
+                created_user_id = basic_info_type_of_diner.created_user_id,
+                updated_user_id = basic_info_type_of_diner.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA ELIMINAR UN  REGISTRO
+
+        [HttpPost("DeleteTypeOfDiner")]
+        public async Task<IActionResult> DeleteTypeOfDiner([FromBody] TypeOfDiner basic_info_type_of_diner)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM basic_info_type_of_diner WHERE id = @id";
+            var queryArguments = new
+            {
+                id = basic_info_type_of_diner.id,
+                name = basic_info_type_of_diner.name,
+                description = basic_info_type_of_diner.description,
+                created_date = basic_info_type_of_diner.created_date,
+                updated_date = basic_info_type_of_diner.updated_date,
+                is_active = basic_info_type_of_diner.is_active,
+                created_user_id = basic_info_type_of_diner.created_user_id,
+                updated_user_id = basic_info_type_of_diner.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+        //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
+
+        [HttpGet("ListAllTypeOfDiners")]
+        public async Task<IActionResult> ListAllTypeOfDiners()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   basic_info_type_of_diner";
+                connection.Open();
+                var groups = await connection.QueryAsync<TypeOfDiner>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+
+            }
+        }
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //************************* Tradition *************************
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
+        [HttpPost("RegisterTradition")]
+        public async Task<IActionResult> RegisterTraditionAsync([FromBody] Tradition basic_info_tradition)
+        {
+            int result = -1;
+            string insertQuery = "INSERT INTO basic_info_tradition (id, name, description,requisitos,reglas, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@id,@name,@description,@requisitos,@reglas,@created_date,@updated_date,@is_active,@created_user_id,@updated_user_id) RETURNING Id";
+            var queryArguments = new
+            {
+                id = basic_info_tradition.id,
+                name = basic_info_tradition.name,
+                description = basic_info_tradition.description,
+                requisitos = basic_info_tradition.requisitos,
+                reglas = basic_info_tradition.reglas,
+                created_date = basic_info_tradition.created_date,
+                updated_date = basic_info_tradition.updated_date,
+                is_active = basic_info_tradition.is_active,
+                created_user_id = basic_info_tradition.created_user_id,
+                updated_user_id = basic_info_tradition.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA EDITAR UN  REGISTRO
+
+        [HttpPost("UpdateTradition")]
+        public async Task<IActionResult> UpdateTradition([FromBody] Tradition basic_info_tradition)
+        {
+
+            int result = -1;
+            string insertQuery = "UPDATE basic_info_tradition  SET name=@name, description=@description,requisitos=@requisitos,reglas=@reglas, created_date=@created_date, updated_date=@updated_date, is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id WHERE id = @id"; var queryArguments = new
+            {
+                id = basic_info_tradition.id,
+                name = basic_info_tradition.name,
+                description = basic_info_tradition.description,
+                requisitos = basic_info_tradition.requisitos,
+                reglas = basic_info_tradition.reglas,
+                created_date = basic_info_tradition.created_date,
+                updated_date = basic_info_tradition.updated_date,
+                is_active = basic_info_tradition.is_active,
+                created_user_id = basic_info_tradition.created_user_id,
+                updated_user_id = basic_info_tradition.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA ELIMINAR UN  REGISTRO
+
+        [HttpPost("DeleteTradition")]
+        public async Task<IActionResult> DeleteTradition([FromBody] Tradition basic_info_tradition)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM basic_info_tradition WHERE id = @id";
+            var queryArguments = new
+            {
+                id = basic_info_tradition.id,
+                name = basic_info_tradition.name,
+                description = basic_info_tradition.description,
+                requisitos = basic_info_tradition.requisitos,
+                reglas = basic_info_tradition.reglas,
+                created_date = basic_info_tradition.created_date,
+                updated_date = basic_info_tradition.updated_date,
+                is_active = basic_info_tradition.is_active,
+                created_user_id = basic_info_tradition.created_user_id,
+                updated_user_id = basic_info_tradition.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+        //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
+
+        [HttpGet("ListAllTraditions")]
+        public async Task<IActionResult> ListAllTraditions()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   basic_info_tradition";
+                connection.Open();
+                var groups = await connection.QueryAsync<Tradition>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+
+            }
+        }
 
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //************************* Culture *************************
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
+        [HttpPost("RegisterCulture")]
+        public async Task<IActionResult> RegisterCultureAsync([FromBody] Culture basic_info_culture)
+        {
+            int result = -1;
+            string insertQuery = "INSERT INTO basic_info_culture (id, name, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@id,@name,@description,@created_date,@updated_date,@is_active,@created_user_id,@updated_user_id) RETURNING Id";
+            var queryArguments = new
+            {
+                id = basic_info_culture.id,
+                name = basic_info_culture.name,
+                description = basic_info_culture.description,
+                created_date = basic_info_culture.created_date,
+                updated_date = basic_info_culture.updated_date,
+                is_active = basic_info_culture.is_active,
+                created_user_id = basic_info_culture.created_user_id,
+                updated_user_id = basic_info_culture.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA EDITAR UN  REGISTRO
+
+        [HttpPost("UpdateCulture")]
+        public async Task<IActionResult> UpdateCulture([FromBody] Culture basic_info_culture)
+        {
+
+            int result = -1;
+            string insertQuery = "UPDATE basic_info_culture  SET name=@name, description=@description, created_date=@created_date, updated_date=@updated_date, is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id WHERE id = @id"; var queryArguments = new
+            {
+                id = basic_info_culture.id,
+                name = basic_info_culture.name,
+                description = basic_info_culture.description,
+                created_date = basic_info_culture.created_date,
+                updated_date = basic_info_culture.updated_date,
+                is_active = basic_info_culture.is_active,
+                created_user_id = basic_info_culture.created_user_id,
+                updated_user_id = basic_info_culture.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA ELIMINAR UN  REGISTRO
+
+        [HttpPost("DeleteCulture")]
+        public async Task<IActionResult> DeleteCulture([FromBody] Culture basic_info_culture)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM basic_info_culture WHERE id = @id";
+            var queryArguments = new
+            {
+                id = basic_info_culture.id,
+                name = basic_info_culture.name,
+                description = basic_info_culture.description,
+                created_date = basic_info_culture.created_date,
+                updated_date = basic_info_culture.updated_date,
+                is_active = basic_info_culture.is_active,
+                created_user_id = basic_info_culture.created_user_id,
+                updated_user_id = basic_info_culture.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+        //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
+
+        [HttpGet("ListAllCultures")]
+        public async Task<IActionResult> ListAllCultures()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   basic_info_culture";
+                connection.Open();
+                var groups = await connection.QueryAsync<Culture>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+
+            }
+        }
 
 
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //************************* Religion *************************
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
+
+        [HttpPost("RegisterReligion")]
+        public async Task<IActionResult> RegisterReligionAsync([FromBody] Religion basic_info_religion)
+        {
+            int result = -1;
+            string insertQuery = "INSERT INTO basic_info_religion (id, name, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@id,@name,@description,@created_date,@updated_date,@is_active,@created_user_id,@updated_user_id) RETURNING Id";
+            var queryArguments = new
+            {
+                id = basic_info_religion.id,
+                name = basic_info_religion.name,
+                description = basic_info_religion.description,
+                created_date = basic_info_religion.created_date,
+                updated_date = basic_info_religion.updated_date,
+                is_active = basic_info_religion.is_active,
+                created_user_id = basic_info_religion.created_user_id,
+                updated_user_id = basic_info_religion.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA EDITAR UN  REGISTRO
+
+        [HttpPost("UpdateReligion")]
+        public async Task<IActionResult> UpdateReligion([FromBody] Religion basic_info_religion)
+        {
+
+            int result = -1;
+            string insertQuery = "UPDATE basic_info_religion  SET name=@name, description=@description, created_date=@created_date, updated_date=@updated_date, is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id WHERE id = @id"; var queryArguments = new
+            {
+                id = basic_info_religion.id,
+                name = basic_info_religion.name,
+                description = basic_info_religion.description,
+                created_date = basic_info_religion.created_date,
+                updated_date = basic_info_religion.updated_date,
+                is_active = basic_info_religion.is_active,
+                created_user_id = basic_info_religion.created_user_id,
+                updated_user_id = basic_info_religion.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA ELIMINAR UN  REGISTRO
+
+        [HttpPost("DeleteReligion")]
+        public async Task<IActionResult> DeleteReligion([FromBody] Religion basic_info_religion)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM basic_info_religion WHERE id = @id";
+            var queryArguments = new
+            {
+                id = basic_info_religion.id,
+                name = basic_info_religion.name,
+                description = basic_info_religion.description,
+                created_date = basic_info_religion.created_date,
+                updated_date = basic_info_religion.updated_date,
+                is_active = basic_info_religion.is_active,
+                created_user_id = basic_info_religion.created_user_id,
+                updated_user_id = basic_info_religion.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+        //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
+
+        [HttpGet("ListAllReligions")]
+        public async Task<IActionResult> ListAllReligions()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   basic_info_religion";
+                connection.Open();
+                var groups = await connection.QueryAsync<Religion>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+
+            }
+        }
+
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
