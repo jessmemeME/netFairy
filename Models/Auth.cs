@@ -6,11 +6,24 @@ dentro se tienen los atributos */
 
 namespace FairyBE.Models
 {
-    public class Auth_Group //clase
+    public class Auth //clase
     {
         //atributo ID
         public  int id { get; set; } //definición de atributo con los metodos que se habilitan para el. De acceso publico
         //atributo NAME
         public required string name { get; set; }
     }
+
+
+    public class AuthGroupPermissions
+    {
+
+    }
+
+    public class AuthPermissions
+    {
+
+    }
+
+
 }

@@ -39,7 +39,7 @@ namespace FairyBE.Controllers
 
         //AQUI CONFIGURAMOS UN ENDPOINT (la ultima palabra de la URL que define la funcion a la que va llamar)
         [HttpPost("RegisterAuthGroup")]
-        public async Task<IActionResult> RegisterAuthGroupAsync([FromBody] Auth_Group auth_Group)
+        public async Task<IActionResult> RegisterAuthGroupAsync([FromBody] Auth auth_Group)
         {
 
             int result = -1;
@@ -63,7 +63,7 @@ namespace FairyBE.Controllers
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         [HttpPost("UpdateAuthGroup")]
-        public async Task<IActionResult> UpdateAuthGroup([FromBody] Auth_Group auth_Group)
+        public async Task<IActionResult> UpdateAuthGroup([FromBody] Auth auth_Group)
         {
 
             int result = -1;
@@ -89,7 +89,7 @@ namespace FairyBE.Controllers
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         [HttpPost("DeleteAuthGroup")]
-        public async Task<IActionResult> DeleteAuthGroup([FromBody] Auth_Group auth_Group)
+        public async Task<IActionResult> DeleteAuthGroup([FromBody] Auth auth_Group)
         {
 
             int result = -1;
@@ -120,7 +120,7 @@ namespace FairyBE.Controllers
             try {
                 string commandText = "SELECT * FROM   auth_group";
                 connection.Open();
-                var groups =  await connection.QueryAsync<Auth_Group>(commandText);
+                var groups =  await connection.QueryAsync<Auth>(commandText);
                 connection.Close();
                 return Ok(groups);
 
