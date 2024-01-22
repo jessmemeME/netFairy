@@ -24,6 +24,7 @@ namespace FairyBE.Models
             date_joined:date;
             last_updated:date;
             last_login:date;
+        TABLE_NAME = 'accounts_user'
          */
     }
 
@@ -31,7 +32,6 @@ namespace FairyBE.Models
     {
         public int id { get; set; }
         [Required] public string auth_token { get; set; }
-        [Required] public string description { get; set; }
         [Required] public bool is_verified { get; set; }
         [Required] public bool is_active { get; set; }
         [Required] public DateTime created_date { get; set; }
@@ -43,6 +43,7 @@ namespace FairyBE.Models
             "id"	"bigint"
             "auth_token"	"character varying"
             "is_verified"	"boolean"
+            "is_active"	"boolean"
             "created_date"	"timestamp with time zone"
             "updated_date"	"timestamp with time zone"
             "created_user_id"	"bigint"
@@ -53,13 +54,34 @@ namespace FairyBE.Models
     }
 
     public class UserGroup
-    { 
-    
+    {
+        public int id { get; set; }
+        [Required] public int user_id { get; set; }
+        [Required] public int group_id { get; set; }
+
+
+        /*
+            "id"	"bigint"
+            "user_id"	"bigint"
+            "group_id"	"integer"
+        TABLE_NAME = 'accounts_user_groups'
+         */
+
     }
-    
+
     public class UserPermissions
     { 
-    
+        public int id { get; set; }
+        [Required] public int user_id { get; set; }
+        [Required] public int permission_id { get; set; }
+
+        /*
+            "id"	"bigint"
+            "user_id"	"bigint"
+            "permission_id"	"integer"
+        TABLE_NAME = 'accounts_user_permissions'
+         */
+
     }
 
 }

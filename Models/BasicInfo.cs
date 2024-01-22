@@ -13,6 +13,10 @@ namespace FairyBE.Models
         [Required] public DateTime updated_date { get; set; }
         [Required] public int created_user_id { get; set; }
         [Required] public int updated_user_id { get; set; }
+
+        /*
+         TABLE_NAME = 'basic_info_age_group'
+         */
     }
 
     public class DocumentType
@@ -34,6 +38,7 @@ namespace FairyBE.Models
             "is_active"	"boolean"
             "created_user_id"	"bigint"
             "updated_user_id"	"bigint"
+            TABLE_NAME = 'basic_info_document_type'
          */
 
     }
@@ -57,6 +62,7 @@ namespace FairyBE.Models
             "is_active"	"boolean"
             "created_user_id"	"bigint"
             "updated_user_id"	"bigint"
+        TABLE_NAME = 'basic_info_gender'
          */
 
     }
@@ -81,6 +87,7 @@ namespace FairyBE.Models
             "is_active"	"boolean"
             "created_user_id"	"bigint"
             "updated_user_id"	"bigint"
+        TABLE_NAME = 'basic_info_relationship_business'
          */
 
     }
@@ -103,6 +110,7 @@ namespace FairyBE.Models
             "is_active"	"boolean"
             "created_user_id"	"bigint"
             "updated_user_id"	"bigint"
+        TABLE_NAME = 'basic_info_type_of_diner'
        */
     }
 
@@ -129,6 +137,7 @@ namespace FairyBE.Models
             "is_active"	"boolean"
             "created_user_id"	"bigint"
             "updated_user_id"	"bigint"
+        TABLE_NAME = 'basic_info_tradition'
          */
     }
 
@@ -151,6 +160,7 @@ namespace FairyBE.Models
             "is_active"	"boolean"
             "created_user_id"	"bigint"
             "updated_user_id"	"bigint"
+        TABLE_NAME = 'basic_info_culture'
          */
     }
     public class Religion
@@ -172,6 +182,7 @@ namespace FairyBE.Models
             "is_active"	"boolean"
             "created_user_id"	"bigint"
             "updated_user_id"	"bigint"
+        TABLE_NAME = 'basic_info_religion'
          */
 
     }

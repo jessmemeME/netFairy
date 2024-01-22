@@ -199,8 +199,394 @@ namespace FairyBE.Controllers
                 throw ex;
             }
         }
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //************************* Profile *************************
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
+
+        [HttpPost("RegisterProfile")]
+        public async Task<IActionResult> RegisterProfileAsync([FromBody] Profile accounts_profile)
+        {
+            int result = -1;
+            string insertQuery = "INSERT INTO accounts_profile (id, auth_token, is_verified, created_date, updated_date, created_user_id, updated_user_id, user_id, is_active) VALUES (@id,@auth_token,@is_verified,@created_date,@updated_date,@created_user_id,@updated_user_id,@user_id,@is_active) RETURNING Id";
+            var queryArguments = new
+            {
+                id = accounts_profile.id,
+                auth_token = accounts_profile.auth_token,
+                is_verified = accounts_profile.is_verified,
+                created_date = accounts_profile.created_date,
+                updated_date = accounts_profile.updated_date,
+                is_active = accounts_profile.is_active,
+                created_user_id = accounts_profile.created_user_id,
+                updated_user_id = accounts_profile.updated_user_id,
+                user_id = accounts_profile.user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA EDITAR UN  REGISTRO
+
+        [HttpPost("UpdateProfile")]
+        public async Task<IActionResult> UpdateProfile([FromBody] Profile accounts_profile)
+        {
+
+            int result = -1;
+            string insertQuery = "UPDATE accounts_profile  SET id=@id, auth_token=@auth_token, is_verified=@is_verified, created_date=@created_date, updated_date=@updated_date, created_user_id=@created_user_id, updated_user_id=@updated_user_id, user_id=@user_id, is_active=@is_active WHERE id = @id"; var queryArguments = new
+            {
+                id = accounts_profile.id,
+                auth_token = accounts_profile.auth_token,
+                is_verified = accounts_profile.is_verified,
+                created_date = accounts_profile.created_date,
+                updated_date = accounts_profile.updated_date,
+                is_active = accounts_profile.is_active,
+                created_user_id = accounts_profile.created_user_id,
+                updated_user_id = accounts_profile.updated_user_id,
+                user_id = accounts_profile.user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA ELIMINAR UN  REGISTRO
+
+        [HttpPost("DeleteProfile")]
+        public async Task<IActionResult> DeleteProfile([FromBody] Profile accounts_profile)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM accounts_profile WHERE id = @id";
+            var queryArguments = new
+            {
+                id = accounts_profile.id,
+                auth_token = accounts_profile.auth_token,
+                is_verified = accounts_profile.is_verified,
+                created_date = accounts_profile.created_date,
+                updated_date = accounts_profile.updated_date,
+                is_active = accounts_profile.is_active,
+                created_user_id = accounts_profile.created_user_id,
+                updated_user_id = accounts_profile.updated_user_id,
+                user_id = accounts_profile.user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+        //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
+
+        [HttpGet("ListAllProfiles")]
+        public async Task<IActionResult> ListAllProfiles()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   accounts_profile";
+                connection.Open();
+                var groups = await connection.QueryAsync<Profile>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+
+            }
+        }
+
+
+
+
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //************************* UserGroup *************************
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
+
+        [HttpPost("RegisterUserGroup")]
+        public async Task<IActionResult> RegisterUserGroupAsync([FromBody] UserGroup accounts_user_groups)
+        {
+            int result = -1;
+            string insertQuery = "INSERT INTO accounts_user_groups (id, user_id, group_id) VALUES (@id, @user_id, @group_id) RETURNING Id";
+            var queryArguments = new
+            {
+                id = accounts_user_groups.id,
+                user_id = accounts_user_groups.user_id,
+                group_id = accounts_user_groups.group_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA EDITAR UN  REGISTRO
+
+        [HttpPost("UpdateUserGroup")]
+        public async Task<IActionResult> UpdateUserGroup([FromBody] UserGroup accounts_user_groups)
+        {
+
+            int result = -1;
+            string insertQuery = "UPDATE accounts_user_groups  SET  id=@, user_id=@, group_id=@id=@id, user_id=@user_id, group_id=@group_id WHERE id = @id"; var queryArguments = new
+            {
+                id = accounts_user_groups.id,
+                user_id = accounts_user_groups.user_id,
+                group_id = accounts_user_groups.group_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA ELIMINAR UN  REGISTRO
+
+        [HttpPost("DeleteUserGroup")]
+        public async Task<IActionResult> DeleteUserGroup([FromBody] UserGroup accounts_user_groups)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM accounts_user_groups WHERE id = @id";
+            var queryArguments = new
+            {
+                id = accounts_user_groups.id,
+                user_id = accounts_user_groups.user_id,
+                group_id = accounts_user_groups.group_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+        //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
+
+        [HttpGet("ListAllUserGroups")]
+        public async Task<IActionResult> ListAllUserGroups()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   accounts_user_groups";
+                connection.Open();
+                var groups = await connection.QueryAsync<UserGroup>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+
+            }
+        }
+
+
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //************************* UserPermissions *************************
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
+
+        [HttpPost("RegisterUserPermissions")]
+        public async Task<IActionResult> RegisterUserPermissionsAsync([FromBody] UserPermissions accounts_user_permissions)
+        {
+            int result = -1;
+            string insertQuery = "INSERT INTO accounts_user_permissions (id, user_id, permission_id) VALUES (@id, @user_id, @permission_id) RETURNING Id";
+            var queryArguments = new
+            {
+                id = accounts_user_permissions.id,
+                user_id = accounts_user_permissions.user_id,
+                permission_id = accounts_user_permissions.permission_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA EDITAR UN  REGISTRO
+
+        [HttpPost("UpdateUserPermissions")]
+        public async Task<IActionResult> UpdateUserPermissions([FromBody] UserPermissions accounts_user_permissions)
+        {
+
+            int result = -1;
+            string insertQuery = "UPDATE accounts_user_permissions  SET  id=@, user_id=@, permission_id=@id=@id, user_id=@user_id, permission_id=@permission_id WHERE id = @id"; var queryArguments = new
+            {
+                id = accounts_user_permissions.id,
+                user_id = accounts_user_permissions.user_id,
+                permission_id = accounts_user_permissions.permission_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA ELIMINAR UN  REGISTRO
+
+        [HttpPost("DeleteUserPermissions")]
+        public async Task<IActionResult> DeleteUserPermissions([FromBody] UserPermissions accounts_user_permissions)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM accounts_user_permissions WHERE id = @id";
+            var queryArguments = new
+            {
+                id = accounts_user_permissions.id,
+                user_id = accounts_user_permissions.user_id,
+                permission_id = accounts_user_permissions.permission_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+        //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
+
+        [HttpGet("ListAllUserPermissionss")]
+        public async Task<IActionResult> ListAllUserPermissionss()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   accounts_user_permissions";
+                connection.Open();
+                var groups = await connection.QueryAsync<UserPermissions>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw ex;
+
+            }
+        }
+
+
+
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
     }
 }
