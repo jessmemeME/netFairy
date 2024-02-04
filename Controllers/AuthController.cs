@@ -20,13 +20,11 @@ namespace FairyBE.Controllers
     //Definición del CONTROLADOR DEL API AuthController
     public class AuthController : Controller
     {
-       
-       
+        #region VARIABLES INTERNAS
         private NpgsqlConnection connection;//Atributo para conectar con Postgresql
         public IConfiguration Configuration { get; }//Se inicializa la interfaz de configuracion
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //CREAMOS UN CONSTRUCTOR DE LA CLASE PARA INICIALIZAR LA CONEXION A LA BD
+        #endregion
+        #region CONSTRUCTOR
         public AuthController(IConfiguration config)
         {
             //Se asigna la interfaz de configuraciion a la configuracion local
@@ -34,10 +32,11 @@ namespace FairyBE.Controllers
             // Se obtiene la cadena de conexion alojada en el json de configuracion
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             //aqui se crea la conexion a la bd
-            connection = new NpgsqlConnection(connectionString);            
+            connection = new NpgsqlConnection(connectionString);
         }
-
-        //AQUI CONFIGURAMOS UN ENDPOINT (la ultima palabra de la URL que define la funcion a la que va llamar)
+        #endregion
+        #region AUTH GROUP
+        #region Register Auth Group
         [HttpPost("RegisterAuthGroup")]
         public async Task<IActionResult> RegisterAuthGroupAsync([FromBody] Auth auth_Group)
         {
@@ -48,7 +47,8 @@ namespace FairyBE.Controllers
             {
                 name = auth_Group.name
             };
-            try {
+            try
+            {
                 connection.Open();
                 result = connection.Execute(insertQuery, queryArguments);
                 connection.Close();
@@ -57,11 +57,10 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
-            } 
+            }
         }
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #endregion
+        #region Update Auth Group
         [HttpPost("UpdateAuthGroup")]
         public async Task<IActionResult> UpdateAuthGroup([FromBody] Auth auth_Group)
         {
@@ -71,23 +70,23 @@ namespace FairyBE.Controllers
             var queryArguments = new
             {
                 name = auth_Group.name,
-                id= auth_Group.id
+                id = auth_Group.id
             };
             try
             {
                 connection.Open();
-                result =  connection.Execute(insertQuery, queryArguments);
+                result = connection.Execute(insertQuery, queryArguments);
                 connection.Close();
                 return Ok(result);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #endregion
+        #region Delete Auth Group
         [HttpPost("DeleteAuthGroup")]
         public async Task<IActionResult> DeleteAuthGroup([FromBody] Auth auth_Group)
         {
@@ -101,46 +100,78 @@ namespace FairyBE.Controllers
             try
             {
                 connection.Open();
-                result =  connection.Execute(insertQuery, queryArguments);
+                result = connection.Execute(insertQuery, queryArguments);
                 connection.Close();
                 return Ok(result);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+        #endregion
+        #region
         [HttpGet("ListAllAuthGroups")]
         public async Task<IActionResult> ListAllAuthGroups()
         {
-            
-            try {
+
+            try
+            {
                 string commandText = "SELECT * FROM   auth_group";
                 connection.Open();
-                var groups =   connection.Query<Auth>(commandText);
+                var groups = connection.Query<Auth>(commandText);
                 connection.Close();
                 return Ok(groups);
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 return BadRequest(ex.Message);
-                throw ex;
-                
+
+            }
+        }
+        #endregion
+        #endregion
+        #region AUTH GROUP PERMISSIONS
+        #region List Permissions by Group Id
+        [HttpGet("ListAllAuthGroupPermissionss/{GroupId}")]
+        public async Task<IActionResult> ListAllAuthGroupPermissionss(int GroupId)
+        {
+
+            try
+            {
+                string commandText = @"select
+                                        ap.id,
+                                        ap.name,
+                                        ap.content_type_id,
+	                                    act.app_label as content_type,
+                                        ap.codename
+                                    from auth_permission  ap
+                                    join auth_group_permissions agp on agp.permission_id  = ap.id 
+                                    join auth_group ag on ag.id = agp.group_id
+                                    join auth_content_type act on act.id = ap.content_type_id
+                                    where ag.id = @GroupIdPar";
+                var queryArguments = new
+                {
+                    GroupIdPar = GroupId
+                };
+                connection.Open();
+                var groups = await connection.QueryAsync<AuthPermissions>(commandText, queryArguments);
+                return Ok(groups);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            finally {
+                connection.Close();
             }
         }
 
 
-
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //************************* AuthGroupPermissions *************************
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
-
+        #endregion
+        #region Register Auth Group Permissions
         [HttpPost("RegisterAuthGroupPermissions")]
         public async Task<IActionResult> RegisterAuthGroupPermissionsAsync([FromBody] AuthGroupPermissions auth_group_permissions)
         {
@@ -162,19 +193,18 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+
             }
         }
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //ENDPOINT PARA EDITAR UN  REGISTRO
-
+        #endregion
+        #region Update Auth Group Permissions
         [HttpPost("UpdateAuthGroupPermissions")]
         public async Task<IActionResult> UpdateAuthGroupPermissions([FromBody] AuthGroupPermissions auth_group_permissions)
         {
 
             int result = -1;
-            string insertQuery = "UPDATE auth_group_permissions  SET  id=@, group_id=@, permission_id=@id=@id, group_id=@group_id, permission_id=@permission_id WHERE id = @id"; var queryArguments = new
+            string insertQuery = "UPDATE auth_group_permissions  SET  id=@, group_id=@, permission_id=@id=@id, group_id=@group_id, permission_id=@permission_id WHERE id = @id"; 
+            var queryArguments = new
             {
                 id = auth_group_permissions.id,
                 group_id = auth_group_permissions.group_id,
@@ -190,13 +220,10 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
             }
         }
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //ENDPOINT PARA ELIMINAR UN  REGISTRO
-
+        #endregion
+        #region Delete AuthGroup Permissions
         [HttpPost("DeleteAuthGroupPermissions")]
         public async Task<IActionResult> DeleteAuthGroupPermissions([FromBody] AuthGroupPermissions auth_group_permissions)
         {
@@ -219,13 +246,11 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+
             }
         }
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
-        //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
-
+        #endregion
+        #region List All Auth Group Permissionss
         [HttpGet("ListAllAuthGroupPermissionss")]
         public async Task<IActionResult> ListAllAuthGroupPermissionss()
         {
@@ -242,7 +267,121 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+
+            }
+        }
+        #endregion
+        #endregion
+        #region AUTH PERMISSIONS
+        //************************* AuthPermissions *************************
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
+
+        [HttpPost("RegisterAuthPermissions")]
+        public async Task<IActionResult> RegisterAuthPermissionsAsync([FromBody] AuthPermissions auth_permission)
+        {
+            int result = -1;
+            string insertQuery = "INSERT INTO auth_permission (id, name, content_type_id, codename) VALUES (@id, @name, @content_type_id, @codename) RETURNING Id";
+            var queryArguments = new
+            {
+                id = auth_permission.id,
+                name = auth_permission.name,
+                content_type_id = auth_permission.content_type_id,
+                codename = auth_permission.codename
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA EDITAR UN  REGISTRO
+
+        [HttpPost("UpdateAuthPermissions")]
+        public async Task<IActionResult> UpdateAuthPermissions([FromBody] AuthPermissions auth_permission)
+        {
+
+            int result = -1;
+            string insertQuery = "UPDATE auth_permission  SET  id=@id, name=@name, content_type_id=@content_type_id, codename=@codename WHERE id = @id"; var queryArguments = new
+            {
+                id = auth_permission.id,
+                name = auth_permission.name,
+                content_type_id = auth_permission.content_type_id,
+                codename = auth_permission.codename
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA ELIMINAR UN  REGISTRO
+
+        [HttpPost("DeleteAuthPermissions")]
+        public async Task<IActionResult> DeleteAuthPermissions([FromBody] AuthPermissions auth_permission)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM auth_permission WHERE id = @id";
+            var queryArguments = new
+            {
+                id = auth_permission.id,
+                name = auth_permission.name,
+                content_type_id = auth_permission.content_type_id,
+                codename = auth_permission.codename
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+        //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
+
+        [HttpGet("ListAllAuthPermissionss")]
+        public async Task<IActionResult> ListAllAuthPermissionss()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   auth_permission";
+                connection.Open();
+                var groups = await connection.QueryAsync<AuthPermissions>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
 
             }
         }
@@ -250,134 +389,8 @@ namespace FairyBE.Controllers
 
 
 
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //************************* AuthPermissions *************************
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
-
-            [HttpPost("RegisterAuthPermissions")]
-            public async Task<IActionResult> RegisterAuthPermissionsAsync([FromBody] AuthPermissions auth_permission)
-            {
-                int result = -1;
-                string insertQuery = "INSERT INTO auth_permission (id, name, content_type_id, codename) VALUES (@id, @name, @content_type_id, @codename) RETURNING Id";
-                var queryArguments = new
-                {
-                    id = auth_permission.id,
-                    name = auth_permission.name,
-                    content_type_id = auth_permission.content_type_id,
-                    codename = auth_permission.codename
-                };
-                try
-                {
-                    connection.Open();
-                    result = await connection.ExecuteAsync(insertQuery, queryArguments);
-                    connection.Close();
-                    return Ok(result);
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                    throw ex;
-                }
-            }
-
-            //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            //ENDPOINT PARA EDITAR UN  REGISTRO
-
-            [HttpPost("UpdateAuthPermissions")]
-            public async Task<IActionResult> UpdateAuthPermissions([FromBody] AuthPermissions auth_permission)
-            {
-
-                int result = -1;
-                string insertQuery = "UPDATE auth_permission  SET  id=@id, name=@name, content_type_id=@content_type_id, codename=@codename WHERE id = @id"; var queryArguments = new
-                {
-                    id = auth_permission.id,
-                    name = auth_permission.name,
-                    content_type_id = auth_permission.content_type_id,
-                    codename = auth_permission.codename
-                };
-                try
-                {
-                    connection.Open();
-                    result = await connection.ExecuteAsync(insertQuery, queryArguments);
-                    connection.Close();
-                    return Ok(result);
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                    throw ex;
-                }
-            }
-
-            //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            //ENDPOINT PARA ELIMINAR UN  REGISTRO
-
-            [HttpPost("DeleteAuthPermissions")]
-            public async Task<IActionResult> DeleteAuthPermissions([FromBody] AuthPermissions auth_permission)
-            {
-
-                int result = -1;
-                string insertQuery = "DELETE FROM auth_permission WHERE id = @id";
-                var queryArguments = new
-                {
-                    id = auth_permission.id,
-                    name = auth_permission.name,
-                    content_type_id = auth_permission.content_type_id,
-                    codename = auth_permission.codename
-                };
-                try
-                {
-                    connection.Open();
-                    result = await connection.ExecuteAsync(insertQuery, queryArguments);
-                    connection.Close();
-                    return Ok(result);
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                    throw ex;
-                }
-            }
-
-            //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
-            //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
-
-            [HttpGet("ListAllAuthPermissionss")]
-            public async Task<IActionResult> ListAllAuthPermissionss()
-            {
-
-                try
-                {
-                    string commandText = "SELECT * FROM   auth_permission";
-                    connection.Open();
-                    var groups = await connection.QueryAsync<AuthPermissions>(commandText);
-                    connection.Close();
-                    return Ok(groups);
-
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                    throw ex;
-
-                }
-            }
-
-
-
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
+        #endregion
+        #region AUTH CONTENT TYPE
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //************************* AuthContentType *************************
 
@@ -405,7 +418,7 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+
             }
         }
 
@@ -433,7 +446,7 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+
             }
         }
 
@@ -462,7 +475,7 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+
             }
         }
 
@@ -485,7 +498,7 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+
 
             }
         }
@@ -497,8 +510,6 @@ namespace FairyBE.Controllers
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
-
-
+        #endregion
     }
 }
