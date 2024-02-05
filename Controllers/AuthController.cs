@@ -141,17 +141,25 @@ namespace FairyBE.Controllers
 
             try
             {
-                string commandText = @"select
+                string commandText = @"with pre_consulta as (
+	                                    select 
+		                                    agp.permission_id,
+		                                    agp.group_id 
+	                                    from auth_group_permissions agp 
+	                                    join auth_group ag on ag.id  = agp.group_id 
+	                                    where ag.id  = @GroupIdPar
+                                    )
+                                    select
                                         ap.id,
                                         ap.name,
                                         ap.content_type_id,
-	                                    act.app_label as content_type,
-                                        ap.codename
+                                        act.app_label as content_type,
+                                        ap.codename, 
+                                        case when  pc.group_id is not null then true else false end as checqueado
                                     from auth_permission  ap
-                                    join auth_group_permissions agp on agp.permission_id  = ap.id 
-                                    join auth_group ag on ag.id = agp.group_id
                                     join auth_content_type act on act.id = ap.content_type_id
-                                    where ag.id = @GroupIdPar";
+                                    left join pre_consulta pc on pc. permission_id = ap.id 
+                                    order by ap.id";
                 var queryArguments = new
                 {
                     GroupIdPar = GroupId
