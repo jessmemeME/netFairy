@@ -207,21 +207,23 @@ namespace FairyBE.Controllers
         #endregion
         #region Update Auth Group Permissions
         [HttpPost("UpdateAuthGroupPermissions")]
-        public async Task<IActionResult> UpdateAuthGroupPermissions([FromBody] AuthGroupPermissions auth_group_permissions)
+        public async Task<IActionResult> UpdateAuthGroupPermissions([FromBody] AuthGroupPermissionsUpdate auth_group_permissions)
         {
 
             int result = -1;
-            string insertQuery = "UPDATE auth_group_permissions  SET  id=@, group_id=@, permission_id=@id=@id, group_id=@group_id, permission_id=@permission_id WHERE id = @id"; 
+            string deleteQuery = "Delete from auth_group_permissions where  group_id=@group_id";
+            string updateQuery = "insert into auth_group_permissions (group_id, permission_id) select @group_id, ap.id from auth_permission ap where ap.id  in" + auth_group_permissions.listaPermisos; 
             var queryArguments = new
             {
-                id = auth_group_permissions.id,
-                group_id = auth_group_permissions.group_id,
-                permission_id = auth_group_permissions.permission_id
+                
+                group_id = auth_group_permissions.id,
+
             };
             try
             {
                 connection.Open();
-                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                result = await connection.ExecuteAsync(deleteQuery, queryArguments);
+                result = await connection.ExecuteAsync(updateQuery, queryArguments);
                 connection.Close();
                 return Ok(result);
             }
