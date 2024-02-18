@@ -207,8 +207,15 @@ namespace FairyBE.Controllers
                 throw ex;
             }
         }
-        #endregion
-        #region Profile
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //************************* Profile *************************
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
+
         [HttpPost("RegisterProfile")]
         public async Task<IActionResult> RegisterProfileAsync([FromBody] Profile accounts_profile)
         {
@@ -221,10 +228,10 @@ namespace FairyBE.Controllers
                 is_verified = accounts_profile.is_verified,
                 created_date = accounts_profile.created_date,
                 updated_date = accounts_profile.updated_date,
-                is_active = accounts_profile.is_active,
                 created_user_id = accounts_profile.created_user_id,
                 updated_user_id = accounts_profile.updated_user_id,
-                user_id = accounts_profile.user_id
+                user_id = accounts_profile.user_id,
+                is_active = accounts_profile.is_active
             };
             try
             {
@@ -255,10 +262,10 @@ namespace FairyBE.Controllers
                 is_verified = accounts_profile.is_verified,
                 created_date = accounts_profile.created_date,
                 updated_date = accounts_profile.updated_date,
-                is_active = accounts_profile.is_active,
                 created_user_id = accounts_profile.created_user_id,
                 updated_user_id = accounts_profile.updated_user_id,
-                user_id = accounts_profile.user_id
+                user_id = accounts_profile.user_id,
+                is_active = accounts_profile.is_active
             };
             try
             {
@@ -290,10 +297,10 @@ namespace FairyBE.Controllers
                 is_verified = accounts_profile.is_verified,
                 created_date = accounts_profile.created_date,
                 updated_date = accounts_profile.updated_date,
-                is_active = accounts_profile.is_active,
                 created_user_id = accounts_profile.created_user_id,
                 updated_user_id = accounts_profile.updated_user_id,
-                user_id = accounts_profile.user_id
+                user_id = accounts_profile.user_id,
+                is_active = accounts_profile.is_active
             };
             try
             {

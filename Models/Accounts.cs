@@ -33,12 +33,12 @@ namespace FairyBE.Models
         public int id { get; set; }
         [Required] public string auth_token { get; set; }
         [Required] public bool is_verified { get; set; }
-        [Required] public bool is_active { get; set; }
         [Required] public DateTime created_date { get; set; }
         [Required] public DateTime updated_date { get; set; }
         [Required] public int created_user_id { get; set; }
         [Required] public int updated_user_id { get; set; }
         [Required] public int user_id { get; set; }
+        [Required] public bool is_active { get; set; }
         /*
             "id"	"bigint"
             "auth_token"	"character varying"
