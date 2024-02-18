@@ -142,20 +142,22 @@ namespace FairyBE.Controllers
             try
             {
                 string commandText = @"with pre_consulta as (
-	                                    select 
-		                                    agp.permission_id,
-		                                    agp.group_id 
-	                                    from auth_group_permissions agp 
-	                                    join auth_group ag on ag.id  = agp.group_id 
-	                                    where ag.id  = @GroupIdPar
-                                    )
+                                        select 
+                                            agp.permission_id,
+                                            agp.group_id,
+                                            agp.state
+                                        from auth_group_permissions agp 
+                                        join auth_group ag on ag.id  = agp.group_id 
+                                        where ag.id  = @GroupIdPar
+                                    )	
                                     select
                                         ap.id,
                                         ap.name,
                                         ap.content_type_id,
                                         act.app_label as content_type,
-                                        ap.codename, 
-                                        case when  pc.group_id is not null then true else false end as checqueado
+                                        ap.codename,
+                                        case when pc.state = 'A' then true else false end as checqueado
+    
                                     from auth_permission  ap
                                     join auth_content_type act on act.id = ap.content_type_id
                                     left join pre_consulta pc on pc. permission_id = ap.id 
@@ -211,18 +213,15 @@ namespace FairyBE.Controllers
         {
 
             int result = -1;
-            string deleteQuery = "Delete from auth_group_permissions where  group_id=@group_id";
-            string updateQuery = "insert into auth_group_permissions (group_id, permission_id) select @group_id, ap.id from auth_permission ap where ap.id  in" + auth_group_permissions.listaPermisos; 
+            string updateQuery = @"update auth_group_permissions agp set state = (case when permission_id in" + auth_group_permissions.listaPermisos + 
+                " then 'A' else 'I'end) , updated_date =  current_date where group_id = @group_id";
             var queryArguments = new
             {
-                
                 group_id = auth_group_permissions.id,
-
             };
             try
             {
                 connection.Open();
-                result = await connection.ExecuteAsync(deleteQuery, queryArguments);
                 result = await connection.ExecuteAsync(updateQuery, queryArguments);
                 connection.Close();
                 return Ok(result);
