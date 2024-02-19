@@ -50,7 +50,7 @@ namespace FairyBE.Controllers
             try
             {
                 connection.Open();
-                result = connection.Execute(insertQuery, queryArguments);
+                result =  await connection.ExecuteAsync(insertQuery, queryArguments);
                 connection.Close();
                 return Ok(result);
             }
@@ -75,7 +75,7 @@ namespace FairyBE.Controllers
             try
             {
                 connection.Open();
-                result = connection.Execute(insertQuery, queryArguments);
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
                 connection.Close();
                 return Ok(result);
             }
@@ -100,7 +100,7 @@ namespace FairyBE.Controllers
             try
             {
                 connection.Open();
-                result = connection.Execute(insertQuery, queryArguments);
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
                 connection.Close();
                 return Ok(result);
             }
@@ -120,7 +120,7 @@ namespace FairyBE.Controllers
             {
                 string commandText = "SELECT * FROM   auth_group";
                 connection.Open();
-                var groups = connection.Query<Auth>(commandText);
+                var groups = await connection.QueryAsync<Auth>(commandText);
                 connection.Close();
                 return Ok(groups);
 

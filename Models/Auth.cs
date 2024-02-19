@@ -27,7 +27,7 @@ namespace FairyBE.Models
 
     public class AuthGroupPermissionsUpdate {
         public int id  { get; set; }
-        public string listaPermisos { get; set; }
+        public string? listaPermisos { get; set; }
     }
 
     public class AuthPermissions
