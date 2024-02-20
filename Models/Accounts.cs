@@ -5,9 +5,9 @@ namespace FairyBE.Models
     public class Accounts // USER
     {
         public int id { get; set; }
-        [Required] public  string password { get; set; }
+        [Required] public  string? password { get; set; }
         [Required] public  bool is_superuser { get; set; }
-        [Required] public  string email { get; set; }
+        [Required] public  string? email { get; set; }
         [Required] public  bool is_staff { get; set; }
         [Required] public  bool is_active { get; set; }
         [Required] public  DateTime date_joined { get; set; }
@@ -31,7 +31,7 @@ namespace FairyBE.Models
     public class Profile
     {
         public int id { get; set; }
-        [Required] public string auth_token { get; set; }
+        [Required] public string? auth_token { get; set; }
         [Required] public bool is_verified { get; set; }
         [Required] public DateTime created_date { get; set; }
         [Required] public DateTime updated_date { get; set; }
@@ -58,15 +58,6 @@ namespace FairyBE.Models
         public int id { get; set; }
         [Required] public int user_id { get; set; }
         [Required] public int group_id { get; set; }
-
-
-        /*
-            "id"	"bigint"
-            "user_id"	"bigint"
-            "group_id"	"integer"
-        TABLE_NAME = 'accounts_user_groups'
-         */
-
     }
 
     public class UserPermissions
@@ -75,13 +66,19 @@ namespace FairyBE.Models
         [Required] public int user_id { get; set; }
         [Required] public int permission_id { get; set; }
 
-        /*
-            "id"	"bigint"
-            "user_id"	"bigint"
-            "permission_id"	"integer"
-        TABLE_NAME = 'accounts_user_permissions'
-         */
 
     }
 
+    public class UserPermissionsWithCheck {
+        public int id { get; set; }
+        public string? permission_name { get; set; }
+        public bool chequeado {get; set;}
+    }
+
+
+    public class UserGroupPermissionsUpdate
+    {
+        public int id { get; set; }
+        public string? listaPermisos { get; set; }
+    }
 }

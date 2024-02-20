@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FairyBE.Controllers
 {
@@ -23,20 +24,25 @@ namespace FairyBE.Controllers
     [Route("[controller]")]
     public class AccountsController : Controller
     {
-        private NpgsqlConnection connection;
-        private readonly IConfiguration _configuration;
+        #region Variables
+        private NpgsqlConnection connection;//Atributo para conectar con Postgresql
+        public IConfiguration Configuration { get; }//Se inicializa la interfaz de configuracion
+        #endregion
+        #region Constructor
 
         //CREAMOS UN CONSTRUCTOR DE LA CLASE PARA INICIALIZAR LA CONEXION A LA BD
-        public AccountsController(IConfiguration configuration)
+        public AccountsController(IConfiguration config)
         {
-            _configuration = configuration;
 
-            string connectionString = "Host=127.0.0.1;Port=5432;Database=proyectoHadaMadrina;Username=postgres;Password=postgres;";
-
+            //Se asigna la interfaz de configuraciion a la configuracion local
+            Configuration = config;
+            // Se obtiene la cadena de conexion alojada en el json de configuracion
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             //aqui se crea la conexion a la bd
             connection = new NpgsqlConnection(connectionString);
-
         }
+        #endregion
+        #region Funciones de utilidad
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         private string GenerateRandomCode()
         {
@@ -46,106 +52,40 @@ namespace FairyBE.Controllers
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private async Task SendEmail(string recipientEmail, string emailSubject, string emailMessage)
+        private void SendEmail(string recipientEmail, string emailSubject, string emailMessage)
         {
-            Console.WriteLine("_configuration = " + _configuration);
-            var emailSettings = _configuration.GetSection("EmailSettings");
+
+            /*var emailSettings = Configuration.GetSection("EmailSettings");
             var smtpServer = emailSettings["SmtpServer"];
             var smtpPort = int.Parse(emailSettings["SmtpPort"]);
             var smtpUsername = emailSettings["SmtpUsername"];
             var smtpPassword = emailSettings["SmtpPassword"];
             var senderEmail = emailSettings["SenderEmail"];
-
-            var smtpClient = new SmtpClient(smtpServer)
+              var smtpClient = new SmtpClient(smtpServer)
+              {
+                  Port = smtpPort,
+                  Credentials = new NetworkCredential(smtpUsername, smtpPassword),
+                  EnableSsl = true,
+              };
+              var mailMessage = new MailMessage(senderEmail, recipientEmail, emailSubject, emailMessage);
+              await smtpClient.SendMailAsync(mailMessage);*/
+            var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
             {
-                Port = smtpPort,
-                Credentials = new NetworkCredential(smtpUsername, smtpPassword),
-                EnableSsl = true,
+                Credentials = new NetworkCredential("091141768341f1", "ef884dc1011a0e"),
+                EnableSsl = true
             };
-
-            var mailMessage = new MailMessage(senderEmail, recipientEmail, emailSubject, emailMessage);
-
-            await smtpClient.SendMailAsync(mailMessage);
-        }
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //AQUI CONFIGURAMOS UN ENDPOINT PARA REGISTRAR CUENTAS DE USUARIOS
-
-            [HttpPost("RegisterAccounts")]
-            public async Task<IActionResult> RegisterAccountsAsync([FromBody] Accounts accounts)
-            {
-                int result = -1;
-                string insertQuery = "INSERT INTO accounts_user (password, last_login, is_superuser, email, is_staff, is_active, date_joined, last_updated) VALUES (@password, now(), @is_superuser, @email, @is_staff, @is_active, now(), now()) RETURNING Id";
-
-                var queryArguments = new
-                {
-                    password = accounts.password,
-                    last_login = accounts.last_login,
-                    is_superuser = accounts.is_superuser,
-                    email = accounts.email,
-                    is_staff = accounts.is_staff,
-                    is_active = accounts.is_active,
-                    date_joined = accounts.date_joined,
-                    last_updated = accounts.last_updated
-                };
-
-                try
-                {
-                    await connection.OpenAsync();
-                    result = await connection.ExecuteAsync(insertQuery, queryArguments);
-                    await connection.CloseAsync();
-
-                    // Generate authentication code
-                    string authenticationCode = GenerateRandomCode();
-
-                    // Send email with authentication code
-                    string recipientEmail = accounts.email;
-                    string emailSubject = "Authentication Code";
-                    string emailMessage = $"Su codigo de autenticación es: {authenticationCode}";
-
-                    await SendEmail(recipientEmail, emailSubject, emailMessage);
-                // Devuelve un mensaje específico en caso de éxito
-                return Ok(new { Result = result, Message = "Se envió el correo con éxito." });
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(new { Result = -1, Message = "Error al enviar el correo electronico." });
-
-                }
+            client.Send("from@example.com", "to@example.com", emailSubject, emailMessage);
 
         }
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-      //AQUI CONFIGURAMOS UN ENDPOINT PARA LISTAR LAS CUENTAS DE USUARIOS
-       [HttpGet("ListAllAccounts")]
-        public async Task<IActionResult> ListAllAccounts()
+        #endregion
+        #region Accounts
+        #region RegisterAccount
+        [HttpPost("RegisterAccounts")]
+        public async Task<IActionResult> RegisterAccountsAsync([FromBody] Accounts accounts)
         {
-
-            try
-            {
-                string commandText = "SELECT * FROM   accounts_user";
-                connection.Open();
-                var users = await connection.QueryAsync<Accounts>(commandText);
-                connection.Close();
-                return Ok(users);
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-                throw ex;
-
-            }
-        }
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //ENDPOINT PARA EDITAR LAS CUENTAS DE USUARIOS
-
-        [HttpPost("UpdateAccounts")]
-        public async Task<IActionResult> UpdateAccounts([FromBody] Accounts accounts)
-        {
-
             int result = -1;
-            string insertQuery = "UPDATE accounts_user  SET password = @password,last_login=@last_login,is_superuser=@is_superuser,email=@email,is_staff=@is_staff,is_active=@is_active,last_updated=now() WHERE id = @id";
+            string insertQuery = "INSERT INTO accounts_user (password, last_login, is_superuser, email, is_staff, is_active, date_joined, last_updated) VALUES (@password, now(), @is_superuser, @email, @is_staff, @is_active, now(), now()) RETURNING Id";
+
             var queryArguments = new
             {
                 password = accounts.password,
@@ -154,24 +94,99 @@ namespace FairyBE.Controllers
                 email = accounts.email,
                 is_staff = accounts.is_staff,
                 is_active = accounts.is_active,
+                date_joined = accounts.date_joined,
                 last_updated = accounts.last_updated
             };
+
             try
             {
                 connection.Open();
                 result = await connection.ExecuteAsync(insertQuery, queryArguments);
                 connection.Close();
+
+                // Generate authentication code
+                string authenticationCode = GenerateRandomCode();
+
+                // Send email with authentication code
+                string recipientEmail = accounts.email;
+                string emailSubject = "Authentication Code";
+                string emailMessage = $"Su codigo de autenticación es: {authenticationCode}";
+
+                SendEmail(recipientEmail, emailSubject, emailMessage);
+                // Devuelve un mensaje específico en caso de éxito
+                return Ok(new { Result = result, Message = "Se envió el correo con éxito." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Result = -1, Message = "Error al enviar el correo electronico." });
+
+            }
+
+        }
+        #endregion
+        #region ListAllAccounts
+        [HttpGet("ListAllAccounts")]
+        public async Task<IActionResult> ListAllAccounts()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   accounts_user";
+                connection.Open();
+                var users = await connection.QueryAsync<Accounts>(commandText);
+                return Ok(users);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+            finally { connection.Close(); }
+        }
+        #endregion
+        #region UpdateAccounts
+        [HttpPost("UpdateAccounts")]
+        public async Task<IActionResult> UpdateAccounts([FromBody] Accounts accounts)
+        {
+
+            int result = -1;
+            string updateQuery = @"UPDATE accounts_user SET 
+                                                        password = @password,
+                                                        last_login = @last_login,
+                                                        is_superuser = @is_superuser,
+                                                        email = @email,
+                                                        is_staff = @is_staff,
+                                                        is_active = @is_active,
+                                                        last_updated = @last_updated
+                                                        WHERE id = @id";
+            var queryArguments = new
+            {
+                id = accounts.id,
+                password = accounts.password,
+                last_login = accounts.last_login,
+                is_superuser = accounts.is_superuser,
+                email = accounts.email,
+                is_staff = accounts.is_staff,
+                is_active = accounts.is_active,
+                last_updated = DateTime.Now
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(updateQuery, queryArguments);
                 return Ok(result);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
             }
+            finally { connection.Close(); }
         }
- //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        [HttpPost("DeleteAccounts")]
-        public async Task<IActionResult> DeleteAccounts([FromBody] Accounts accounts)
+        #endregion
+        #region DeleteAccount
+        [HttpPost("DeleteAuthGroup")]
+        public async Task<IActionResult> DeleteAuthGroup([FromBody] Accounts accounts)
         {
 
             int result = -1;
@@ -190,9 +205,12 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
+        #endregion
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -229,7 +247,7 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
 
@@ -263,7 +281,7 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
 
@@ -298,7 +316,7 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
 
@@ -321,27 +339,12 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
 
             }
         }
-
-
-
-
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //************************* UserGroup *************************
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+        #endregion
+        #region UserGroup
         //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
         [HttpPost("RegisterUserGroup")]
@@ -365,7 +368,7 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
 
@@ -393,7 +396,7 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
 
@@ -422,7 +425,7 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
 
@@ -445,26 +448,13 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
 
             }
         }
-
-
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //************************* UserPermissions *************************
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
-
+        #endregion
+        #region UserPermisssion
+        #region RegisterUsserPermissions
         [HttpPost("RegisterUserPermissions")]
         public async Task<IActionResult> RegisterUserPermissionsAsync([FromBody] UserPermissions accounts_user_permissions)
         {
@@ -486,19 +476,18 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //ENDPOINT PARA EDITAR UN  REGISTRO
-
+        #endregion
+        #region UpdateUsserPermissions
         [HttpPost("UpdateUserPermissions")]
         public async Task<IActionResult> UpdateUserPermissions([FromBody] UserPermissions accounts_user_permissions)
         {
 
             int result = -1;
-            string insertQuery = "UPDATE accounts_user_permissions  SET  id=@, user_id=@, permission_id=@id=@id, user_id=@user_id, permission_id=@permission_id WHERE id = @id"; var queryArguments = new
+            string insertQuery = "UPDATE accounts_user_permissions  SET  id=@, user_id=@, permission_id=@id=@id, user_id=@user_id, permission_id=@permission_id WHERE id = @id"; 
+            var queryArguments = new
             {
                 id = accounts_user_permissions.id,
                 user_id = accounts_user_permissions.user_id,
@@ -514,13 +503,11 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //ENDPOINT PARA ELIMINAR UN  REGISTRO
-
+        #endregion
+        #region DeleteUserPermissions
         [HttpPost("DeleteUserPermissions")]
         public async Task<IActionResult> DeleteUserPermissions([FromBody] UserPermissions accounts_user_permissions)
         {
@@ -543,13 +530,11 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
+                
             }
         }
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
-        //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
-
+        #endregion
+        #region ListAllUserPermissions
         [HttpGet("ListAllUserPermissionss")]
         public async Task<IActionResult> ListAllUserPermissionss()
         {
@@ -566,18 +551,63 @@ namespace FairyBE.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                throw ex;
 
             }
         }
-
-
-
-
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
+        #endregion
+        #region GetPermissionsByUser
+        [HttpGet("GetPermissionsById/{userId}")]
+        public async Task<IActionResult> GetPermissionsById(int userId) {
+            string query = @"
+                select
+	                ap.id,
+	                ap.name as permission_name,	
+	                case when aup.state = 'A' then true else false end as chequeado
+                from auth_permission ap
+                left join accounts_user_permissions aup on ap.id =aup.permission_id
+                where aup.user_id = @user_id
+                order by  ap.id
+            ";
+            var queryArguments = new
+            {
+                user_id = userId,
+            };
+            try { 
+                connection.Open();
+                var Permissions = await connection.QueryAsync<UserPermissionsWithCheck>(query, queryArguments);
+                return Ok(Permissions);
+            }
+            catch (Exception ex) { 
+                return BadRequest(ex.Message);
+            }
+            finally { 
+                connection.Close();
+            }
+        }
+        #endregion
+        #region AsingPermisionToUser
+        [HttpPost("AsingPermisionToUser")]
+        public async Task<IActionResult> AsingPermisionToUser([FromBody]  UserGroupPermissionsUpdate ListaPermisosSeleccionados) {
+            string query = @"update accounts_user_permissions aup set state = (case when permission_id in" + ListaPermisosSeleccionados.listaPermisos + 
+                " then 'A' else 'I'end) , updated_date =  current_date where user_id  = @user_id";
+            var queryArguments = new
+            {
+                user_id = ListaPermisosSeleccionados.id
+            };
+            try {
+                connection.Open();
+                var resultado = await connection.ExecuteAsync(query, queryArguments
+                    );
+                return Ok(resultado);
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }finally { 
+                connection.Close();
+            }
+            
+        }
+        #endregion
+        #endregion
     }
 }

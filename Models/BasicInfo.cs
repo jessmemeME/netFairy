@@ -5,9 +5,9 @@ namespace FairyBE.Models
     public class AgeGroup
     {
         public int id { get; set; }
-        [Required] public string name { get; set; }
-        [Required] public string description { get; set; }
-        [Required] public string age_range { get; set; }
+        [Required] public string? name { get; set; }
+        [Required] public string? description { get; set; }
+        [Required] public string? age_range { get; set; }
         [Required] public bool is_active { get; set; }
         [Required] public DateTime created_date { get; set; }
         [Required] public DateTime updated_date { get; set; }
@@ -22,8 +22,8 @@ namespace FairyBE.Models
     public class DocumentType
     {
         public int id { get; set; }
-        [Required] public string name { get; set; }
-        [Required] public string description { get; set; }
+        [Required] public string? name { get; set; }
+        [Required] public string? description { get; set; }
         [Required] public bool is_active { get; set; }
         [Required] public DateTime created_date { get; set; }
         [Required] public DateTime updated_date { get; set; }
@@ -46,8 +46,8 @@ namespace FairyBE.Models
     public class Gender
     {
         public int id { get; set; }
-        [Required] public string name { get; set; }
-        [Required] public string description { get; set; }
+        [Required] public string? name { get; set; }
+        [Required] public string? description { get; set; }
         [Required] public bool is_active { get; set; }
         [Required] public DateTime created_date { get; set; }
         [Required] public DateTime updated_date { get; set; }
@@ -70,8 +70,8 @@ namespace FairyBE.Models
     public class RelationshipBusiness
     {
         public int id { get; set; }
-        [Required] public string name { get; set; }
-        [Required] public string description { get; set; }
+        [Required] public string? name { get; set; }
+        [Required] public string? description { get; set; }
         [Required] public bool is_active { get; set; }
         [Required] public DateTime created_date { get; set; }
         [Required] public DateTime updated_date { get; set; }
@@ -94,8 +94,8 @@ namespace FairyBE.Models
     public class TypeOfDiner
     {
         public int id { get; set; }
-        [Required] public string name { get; set; }
-        [Required] public string description { get; set; }
+        [Required] public string? name { get; set; }
+        [Required] public string ?description { get; set; }
         [Required] public bool is_active { get; set; }
         [Required] public DateTime created_date { get; set; }
         [Required] public DateTime updated_date { get; set; }
@@ -117,10 +117,10 @@ namespace FairyBE.Models
     public class Tradition
     {
         public int id { get; set; }
-        [Required] public string name { get; set; }
-        [Required] public string description { get; set; }
-        [Required] public string requisitos { get; set; }
-        [Required] public string reglas { get; set; }
+        [Required] public string? name { get; set; }
+        [Required] public string? description { get; set; }
+        [Required] public string? requisitos { get; set; }
+        [Required] public string? reglas { get; set; }
         [Required] public bool is_active { get; set; }
         [Required] public DateTime created_date { get; set; }
         [Required] public DateTime updated_date { get; set; }
@@ -144,8 +144,8 @@ namespace FairyBE.Models
     public class Culture
     {
         public int id { get; set; }
-        [Required] public string name { get; set; }
-        [Required] public string description { get; set; }
+        [Required] public string? name { get; set; }
+        [Required] public string? description { get; set; }
         [Required] public bool is_active { get; set; }
         [Required] public DateTime created_date { get; set; }
         [Required] public DateTime updated_date { get; set; }
@@ -166,8 +166,8 @@ namespace FairyBE.Models
     public class Religion
     {
         public int id { get; set; }
-        [Required] public string name { get; set; }
-        [Required] public string description { get; set; }
+        [Required] public string? name { get; set; }
+        [Required] public string? description { get; set; }
         [Required] public bool is_active { get; set; }
         [Required] public DateTime created_date { get; set; }
         [Required] public DateTime updated_date { get; set; }

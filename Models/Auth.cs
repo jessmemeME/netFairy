@@ -23,29 +23,22 @@ namespace FairyBE.Models
         [Required] public bool group_id { get; set; }
         [Required] public bool permission_id { get; set; }
 
-        /*
-            "id"	"bigint"
-            "group_id"	"integer"
-            "permission_id"	"integer"
-         TABLE_NAME = 'auth_group_permissions'
-         */
+    }
+
+    public class AuthGroupPermissionsUpdate {
+        public int id  { get; set; }
+        public string? listaPermisos { get; set; }
     }
 
     public class AuthPermissions
     {
         public int id { get; set; }
         public required string name { get; set; }
-        public required int content_type_id { get; set; }
+        public int content_type_id { get; set; }
+        public string? content_type { get; set; }
+        public bool checqueado {get; set;}
         public required string codename { get; set; }
 
-
-        /*
-            "id"	"integer"
-            "name"	"character varying"
-            "content_type_id"	"integer"
-            "codename"	"character varying"
-        TABLE_NAME = 'auth_permission'
-         */
     }
     
 
@@ -55,13 +48,6 @@ namespace FairyBE.Models
         public required string app_label { get; set; }
         public required string model { get; set; }
 
-
-        /*
-        "id"	"integer"
-        "app_label"	"character varying"
-        "model"	"character varying"
-        TABLE_NAME = 'auth_content_type'
-         */
     }
 
 
