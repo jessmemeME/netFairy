@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FairyBE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+830e32ace2e3071c1d7fd982eb461ba53bce88be")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+93c7b76a89ee3d7a9448b99b51e3e04744bc6c0d")]
 [assembly: System.Reflection.AssemblyProductAttribute("FairyBE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FairyBE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
