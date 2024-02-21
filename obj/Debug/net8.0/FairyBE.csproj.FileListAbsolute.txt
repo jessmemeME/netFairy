@@ -114,9 +114,9 @@ C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\netFairy\obj\Debug\net8.0\staticwe
 C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\netFairy\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.FairyBE.props
 C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\netFairy\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\netFairy\obj\Debug\net8.0\scopedcss\bundle\FairyBE.styles.css
-C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\netFairy\obj\Debug\net8.0\FairyBE.csproj.CopyComplete
 C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\netFairy\obj\Debug\net8.0\FairyBE.dll
 C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\netFairy\obj\Debug\net8.0\refint\FairyBE.dll
 C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\netFairy\obj\Debug\net8.0\FairyBE.pdb
 C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\netFairy\obj\Debug\net8.0\FairyBE.genruntimeconfig.cache
 C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\netFairy\obj\Debug\net8.0\ref\FairyBE.dll
+C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\netFairy\obj\Debug\net8.0\FairyBE.csproj.Up2Date
