@@ -21,11 +21,12 @@ namespace FairyBE.Controllers
     public class BasicInfoController : Controller
     {
 
-
+        #region VARIABLES INTERNAS
         private NpgsqlConnection connection;//Atributo para conectar con Postgresql
         public IConfiguration Configuration { get; }//Se inicializa la interfaz de configuracion
+        #endregion
 
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #region CONSTRUCTOR
         //CREAMOS UN CONSTRUCTOR DE LA CLASE PARA INICIALIZAR LA CONEXION A LA BD
         public BasicInfoController(IConfiguration config)
         {
@@ -36,14 +37,19 @@ namespace FairyBE.Controllers
             //aqui se crea la conexion a la bd
             connection = new NpgsqlConnection(connectionString);
         }
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #endregion
+
+        //------OPERACIONES CON LAS TABLAS DE LA BASE-----
+
+        #region AGE GROUPS
 
         //************************* AGE GROUPS *************************
 
+        #region Register RegisterAgeGroup
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                //ENDPOINT PARA CREAR UN NUEVO REGISTRO
+        //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
-                [HttpPost("RegisterAgeGroup")]
+        [HttpPost("RegisterAgeGroup")]
                 public async Task<IActionResult> RegisterAgeGroupAsync([FromBody] AgeGroup basic_info_age_group)
                 {
                     int result = -1;
@@ -85,11 +91,13 @@ namespace FairyBE.Controllers
                         
                     }
                 }
+        #endregion
+        #region Update UpdateAgeGroups
 
-                //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                //ENDPOINT PARA EDITAR UN  REGISTRO
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA EDITAR UN  REGISTRO
 
-                [HttpPost("UpdateAgeGroups")]
+        [HttpPost("UpdateAgeGroups")]
                 public async Task<IActionResult> UpdateAgeGroups([FromBody] AgeGroup basic_info_age_group)
                 {
 
@@ -120,11 +128,12 @@ namespace FairyBE.Controllers
                         
                     }
                 }
+        #endregion
+        #region Delete DeleteAgeGroups
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //ENDPOINT PARA ELIMINAR UN  REGISTRO
 
-                //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                //ENDPOINT PARA ELIMINAR UN  REGISTRO
-
-                [HttpPost("DeleteAgeGroups")]
+        [HttpPost("DeleteAgeGroups")]
                 public async Task<IActionResult> DeleteAgeGroups([FromBody] AgeGroup basic_info_age_group)
                 {
 
@@ -155,11 +164,12 @@ namespace FairyBE.Controllers
                         
                     }
                 }
+        #endregion
+        #region Listar ListAllBusinessInvoiceDatas
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+        //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
 
-                //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
-                //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
-
-                [HttpGet("ListAllAgeGroups")]
+        [HttpGet("ListAllAgeGroups")]
                 public async Task<IActionResult> ListAllAgeGroups()
                 {
 
@@ -180,9 +190,13 @@ namespace FairyBE.Controllers
                     }
                 }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #endregion
+        #endregion
 
+        #region DocumentType
         //************************* DocumentType *************************
 
+        #region Register RegisterDocumentType
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
@@ -227,6 +241,8 @@ namespace FairyBE.Controllers
             }
         }
 
+        #endregion
+        #region Update UpdateDocumentType
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA EDITAR UN  REGISTRO
 
@@ -261,6 +277,9 @@ namespace FairyBE.Controllers
             }
         }
 
+        #endregion
+        #region Delete DeleteDocumentType
+
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA ELIMINAR UN  REGISTRO
 
@@ -294,6 +313,8 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+        #region Listar ListAllDocumentTypes
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
         //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
@@ -318,19 +339,26 @@ namespace FairyBE.Controllers
 
             }
         }
+
+        #endregion
+        #endregion
+
+        #region Gender
+
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         //************************* Gender *************************
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        #region Register RegisterGender
         //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
         [HttpPost("RegisterGender")]
         public async Task<IActionResult> RegisterGenderAsync([FromBody] Gender basic_info_gender)
         {
             int result = -1;
-            string insertQuery = "INSERT INTO basic_info_gender (id, name, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@id,@name,@description,@created_date,@updated_date,@is_active,@created_user_id,@updated_user_id) RETURNING Id";
+            string insertQuery = "INSERT INTO basic_info_gender (id, name, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@id,@name,@description,now(),now(),@is_active,@created_user_id,@updated_user_id) RETURNING Id";
             var queryArguments = new
             {
                 id = basic_info_gender.id,
@@ -355,7 +383,8 @@ namespace FairyBE.Controllers
                 
             }
         }
-
+        #endregion
+        #region Update UpdateGender
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA EDITAR UN  REGISTRO
 
@@ -364,7 +393,7 @@ namespace FairyBE.Controllers
         {
 
             int result = -1;
-            string insertQuery = "UPDATE basic_info_gender  SET name=@name, description=@description, created_date=@created_date, updated_date=@updated_date, is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id WHERE id = @id"; var queryArguments = new
+            string insertQuery = "UPDATE basic_info_gender  SET name=@name, description=@description, created_date=@created_date, updated_date=@updated_date, is_active=@is_active, created_user_id=@created_user_id, updated_user_id=now() WHERE id = @id"; var queryArguments = new
             {
                 id = basic_info_gender.id,
                 name = basic_info_gender.name,
@@ -388,6 +417,8 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+        #region Delete DeleteGender
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA ELIMINAR UN  REGISTRO
@@ -422,7 +453,8 @@ namespace FairyBE.Controllers
                 
             }
         }
-
+        #endregion
+        #region Listar  ListAllGenders
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
         //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
 
@@ -447,12 +479,16 @@ namespace FairyBE.Controllers
             }
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #endregion
+        #endregion
 
-
+        #region RelationshipBusiness
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //************************* RelationshipBusiness *************************
 
+
+        #region Register RegisterRelationshipBusiness
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
@@ -485,7 +521,8 @@ namespace FairyBE.Controllers
                 
             }
         }
-
+        #endregion
+        #region Update UpdateRelationshipBusiness
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA EDITAR UN  REGISTRO
 
@@ -494,7 +531,16 @@ namespace FairyBE.Controllers
         {
 
             int result = -1;
-            string insertQuery = "UPDATE basic_info_relationship_business  SET name=@name, description=@description, created_date=@created_date, updated_date=@updated_date, is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id WHERE id = @id"; var queryArguments = new
+            string insertQuery = @"UPDATE basic_info_relationship_business  SET 
+                                            name=@name, 
+                                            description=@description,  
+                                           created_date=@created_date,  
+                                           updated_date=@updated_date,  
+                                           is_active=@is_active,  
+                                           created_user_id=@created_user_id,  
+                                           updated_user_id=@updated_user_id  
+                                  WHERE id = @id"; 
+            var queryArguments = new
             {
                 id = basic_info_relationship_business.id,
                 name = basic_info_relationship_business.name,
@@ -518,6 +564,8 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+        #region Delete DeleteRelationshipBusiness
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA ELIMINAR UN  REGISTRO
@@ -552,6 +600,8 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+        #region Listar ListAllRelationshipBusiness
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
         //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
@@ -577,11 +627,15 @@ namespace FairyBE.Controllers
             }
         }
 
+        #endregion
+        #endregion
 
+        #region TypeOfDiner
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //************************* TypeOfDiner *************************
 
+        #region Register RegisterTypeOfDiner
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
@@ -589,7 +643,7 @@ namespace FairyBE.Controllers
         public async Task<IActionResult> RegisterTypeOfDinerAsync([FromBody] TypeOfDiner basic_info_type_of_diner)
         {
             int result = -1;
-            string insertQuery = "INSERT INTO basic_info_type_of_diner (id, name, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@id,@name,@description,@created_date,@updated_date,@is_active,@created_user_id,@updated_user_id) RETURNING Id";
+            string insertQuery = "INSERT INTO basic_info_type_of_diner (id, name, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@id,@name,@description,now(),now(),@is_active,@created_user_id,@updated_user_id) RETURNING Id";
             var queryArguments = new
             {
                 id = basic_info_type_of_diner.id,
@@ -614,7 +668,8 @@ namespace FairyBE.Controllers
                 
             }
         }
-
+        #endregion
+        #region Update UpdateTypeOfDiner
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA EDITAR UN  REGISTRO
 
@@ -647,7 +702,8 @@ namespace FairyBE.Controllers
                 
             }
         }
-
+        #endregion
+        #region Delete DeleteTypeOfDiner
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA ELIMINAR UN  REGISTRO
 
@@ -681,6 +737,8 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+        #region Listar ListAllTypeOfDiners
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
         //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
@@ -705,12 +763,17 @@ namespace FairyBE.Controllers
 
             }
         }
+        #endregion
+        #endregion
+
+        #region Tradition
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //************************* Tradition *************************
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        #region Register RegisterTradition
         //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
         [HttpPost("RegisterTradition")]
@@ -744,6 +807,9 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+
+        #region Update UpdateTradition
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA EDITAR UN  REGISTRO
@@ -779,6 +845,8 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+        #region Delete DeleteTradition
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA ELIMINAR UN  REGISTRO
@@ -815,6 +883,8 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+        #region Listar ListAllTraditions
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
         //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
@@ -839,11 +909,15 @@ namespace FairyBE.Controllers
 
             }
         }
+        #endregion
+        #endregion
 
+        #region Culture
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //************************* Culture *************************
 
+        #region Register RegisterCulture
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
@@ -876,6 +950,8 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+        #region Update UpdateCulture
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA EDITAR UN  REGISTRO
@@ -909,6 +985,8 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+        #region Delete DeleteCulture
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA ELIMINAR UN  REGISTRO
@@ -943,7 +1021,8 @@ namespace FairyBE.Controllers
                 
             }
         }
-
+        #endregion
+        #region Listar ListAllCultures
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
         //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
 
@@ -967,7 +1046,11 @@ namespace FairyBE.Controllers
 
             }
         }
+        #endregion
+        #endregion
 
+
+        #region Religion
 
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -975,6 +1058,7 @@ namespace FairyBE.Controllers
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        #region Register RegisterReligion
         //ENDPOINT PARA CREAR UN NUEVO REGISTRO
 
         [HttpPost("RegisterReligion")]
@@ -1006,6 +1090,8 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+        #region Update UpdateReligion
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA EDITAR UN  REGISTRO
@@ -1039,6 +1125,8 @@ namespace FairyBE.Controllers
                 
             }
         }
+        #endregion
+        #region Delete DeleteReligion
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //ENDPOINT PARA ELIMINAR UN  REGISTRO
@@ -1073,7 +1161,8 @@ namespace FairyBE.Controllers
                 
             }
         }
-
+        #endregion
+        #region Listar ListAllReligions
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
         //ENDPOINT PARA LISTAR TODOS LOS REGISTROS DE LA TABLA
 
@@ -1097,7 +1186,8 @@ namespace FairyBE.Controllers
 
             }
         }
-
+        #endregion
+        #endregion
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
