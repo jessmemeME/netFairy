@@ -976,6 +976,122 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "DeleteBusinessColor",
+    "RelativePath": "Business/DeleteBusinessColor",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_color",
+        "Type": "FairyBE.Models.BusinessColor",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "DeleteBusinessInvoiceData",
+    "RelativePath": "Business/DeleteBusinessInvoiceData",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_invoice_data",
+        "Type": "FairyBE.Models.BusinessInvoiceData",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "ListAllBusinessColors",
+    "RelativePath": "Business/ListAllBusinessColors",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "ListAllBusinessInvoiceDatas",
+    "RelativePath": "Business/ListAllBusinessInvoiceDatas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "RegisterBusinessColorAsync",
+    "RelativePath": "Business/RegisterBusinessColor",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_color",
+        "Type": "FairyBE.Models.BusinessColor",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "RegisterBusinessInvoiceDataAsync",
+    "RelativePath": "Business/RegisterBusinessInvoiceData",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_invoice_data",
+        "Type": "FairyBE.Models.BusinessInvoiceData",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "UpdateBusinessColor",
+    "RelativePath": "Business/UpdateBusinessColor",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_color",
+        "Type": "FairyBE.Models.BusinessColor",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "UpdateBusinessInvoiceData",
+    "RelativePath": "Business/UpdateBusinessInvoiceData",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_invoice_data",
+        "Type": "FairyBE.Models.BusinessInvoiceData",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FairyBE.Controllers.ClientsController",
     "Method": "DeleteClients",
     "RelativePath": "Clients/DeleteClients",
