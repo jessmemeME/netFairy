@@ -41,7 +41,7 @@ namespace FairyBE.Controllers
         {
 
             int result = -1;
-            string insertQuery = "INSERT INTO business_invoice_data (name, document_number, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@name,@document_number,@description,@created_date,@updated_date,@is_active,@created_user_id,@updated_user_id) RETURNING Id";
+            string insertQuery = "INSERT INTO business_invoice_data (name, document_number, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@name,@document_number,@description,now(),now(),@is_active,@created_user_id,@updated_user_id) RETURNING Id";
             var queryArguments = new
             {
                 name = business_invoice_data.name,
@@ -73,7 +73,7 @@ namespace FairyBE.Controllers
         {
 
             int result = -1;
-            string insertQuery = "UPDATE business_invoice_data  SET name=@name, document_number=@document_number, description=@description, created_date=@created_date, updated_date=@updated_date, is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id WHERE id = @id";
+            string insertQuery = "UPDATE business_invoice_data  SET name=@name, document_number=@document_number, description=@description, created_date=@created_date, updated_date=now(), is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id WHERE id = @id";
             var queryArguments = new
             {
                 id = business_invoice_data.id,
@@ -133,7 +133,7 @@ namespace FairyBE.Controllers
             }
         }
         #endregion
-        #region
+        #region Listar ListAllBusinessInvoiceDatas
         [HttpGet("ListAllBusinessInvoiceDatas")]
         public async Task<IActionResult> ListAllBusinessInvoiceDatas()
         {
@@ -163,7 +163,7 @@ namespace FairyBE.Controllers
         {
 
             int result = -1;
-            string insertQuery = "INSERT INTO business_color (color_origin, name, description, code_RGB, code_hexadecimal,code_CMK, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@color_origin,@name,@description,@code_RGB,@code_hexadecimal,@code_CMK,@created_date,@updated_date,@is_active,@created_user_id,@updated_user_id) RETURNING Id";
+            string insertQuery = "INSERT INTO business_color (color_origin, name, description, code_RGB, code_hexadecimal,code_CMK, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@color_origin,@name,@description,@code_RGB,@code_hexadecimal,@code_CMK,now(),now(),@is_active,@created_user_id,@updated_user_id) RETURNING Id";
             var queryArguments = new
             {
                 color_origin = business_color.color_origin,
@@ -198,7 +198,7 @@ namespace FairyBE.Controllers
         {
 
             int result = -1;
-            string insertQuery = "UPDATE business_color  SET color_origin=@color_origin, name=@name, description=@description, code_RGB=@code_RGB, code_hexadecimal=@code_hexadecimal, code_CMK=@code_CMK, created_date=@created_date, updated_date=@updated_date, is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id WHERE id = @id";
+            string insertQuery = "UPDATE business_color  SET color_origin=@color_origin, name=@name, description=@description, code_RGB=@code_RGB, code_hexadecimal=@code_hexadecimal, code_CMK=@code_CMK, created_date=@created_date, updated_date=now(), is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id WHERE id = @id";
             var queryArguments = new
             {
                 id = business_color.id,
@@ -274,6 +274,383 @@ namespace FairyBE.Controllers
                 string commandText = "SELECT * FROM   business_color";
                 connection.Open();
                 var groups = await connection.QueryAsync<BusinessColor>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #endregion
+
+        #region BusinessInvoiceType
+        #region Register BusinessInvoiceType
+        [HttpPost("RegisterBusinessInvoiceType")]
+        public async Task<IActionResult> RegisterBusinessInvoiceTypeAsync([FromBody] BusinessInvoiceType business_invoice_type)
+        {
+
+            int result = -1;
+            string insertQuery = "INSERT INTO business_invoice_type (name,description,created_date,updated_date,is_active,created_user_id,updated_user_id) VALUES (@name,@description,now(),now(),@is_active,@created_user_id,@updated_user_id) RETURNING id";
+            var queryArguments = new
+            {
+                name = business_invoice_type.name,
+                description = business_invoice_type.description,
+                created_date = business_invoice_type.created_date,
+                updated_date = business_invoice_type.updated_date,
+                is_active = business_invoice_type.is_active,
+                created_user_id = business_invoice_type.created_user_id,
+                updated_user_id = business_invoice_type.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Update BusinessInvoiceType
+        [HttpPost("UpdateBusinessInvoiceType")]
+        public async Task<IActionResult> UpdateBusinessInvoiceType([FromBody] BusinessInvoiceType business_invoice_type)
+        {
+
+            int result = -1;
+            string insertQuery = "UPDATE business_invoice_type  SET name=@name, description=@description, created_date=@created_date, updated_date=now(), is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id	WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_invoice_type.id,
+                name = business_invoice_type.name,
+                description = business_invoice_type.description,
+                created_date = business_invoice_type.created_date,
+                updated_date = business_invoice_type.updated_date,
+                is_active = business_invoice_type.is_active,
+                created_user_id = business_invoice_type.created_user_id,
+                updated_user_id = business_invoice_type.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region Delete BusinessInvoiceType
+        [HttpPost("DeleteBusinessInvoiceType")]
+        public async Task<IActionResult> DeleteBusinessInvoiceType([FromBody] BusinessInvoiceType business_invoice_type)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM business_invoice_type WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_invoice_type.id,
+                name = business_invoice_type.name,
+                description = business_invoice_type.description,
+                created_date = business_invoice_type.created_date,
+                updated_date = business_invoice_type.updated_date,
+                is_active = business_invoice_type.is_active,
+                created_user_id = business_invoice_type.created_user_id,
+                updated_user_id = business_invoice_type.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region
+        [HttpGet("ListAllBusinessInvoiceTypes")]
+        public async Task<IActionResult> ListAllBusinessInvoiceTypes()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   business_invoice_type";
+                connection.Open();
+                var groups = await connection.QueryAsync<BusinessInvoiceType>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #endregion
+
+        #region BusinessProduct
+        #region Register BusinessProduct
+        [HttpPost("RegisterBusinessProduct")]
+        public async Task<IActionResult> RegisterBusinessProductAsync([FromBody] BusinessProduct business_product)
+        {
+
+            int result = -1;
+            string insertQuery = "INSERT INTO business_product (name, description, created_date, updated_date, is_active, created_user_id, id_product_type_id, updated_user_id) VALUES (@name,@description,now(),now(),@is_active,@created_user_id,@id_product_type_id,@updated_user_id) RETURNING id";
+            var queryArguments = new
+            {
+                name = business_product.name,
+                description = business_product.description,
+                created_date = business_product.created_date,
+                updated_date = business_product.updated_date,
+                is_active = business_product.is_active,
+                created_user_id = business_product.created_user_id,
+                id_product_type_id = business_product.id_product_type_id,
+                updated_user_id = business_product.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Update BusinessProduct
+        [HttpPost("UpdateBusinessProduct")]
+        public async Task<IActionResult> UpdateBusinessProduct([FromBody] BusinessProduct business_product)
+        {
+
+            int result = -1;
+            string insertQuery = @"UPDATE business_product  SET 
+								name=@name, 
+								description=@description, 
+								created_date=@created_date, 
+								updated_date=now(), 
+								is_active=@is_active, 
+								created_user_id=@created_user_id, 
+								id_product_type_id=@id_product_type_id, 
+								updated_user_id=@updated_user_id	
+							WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_product.id,
+                name = business_product.name,
+                description = business_product.description,
+                created_date = business_product.created_date,
+                updated_date = business_product.updated_date,
+                is_active = business_product.is_active,
+                created_user_id = business_product.created_user_id,
+                id_product_type_id = business_product.id_product_type_id,
+                updated_user_id = business_product.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region Delete BusinessProduct
+        [HttpPost("DeleteBusinessProduct")]
+        public async Task<IActionResult> DeleteBusinessProduct([FromBody] BusinessProduct business_product)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM business_product WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_product.id,
+                name = business_product.name,
+                description = business_product.description,
+                created_date = business_product.created_date,
+                updated_date = business_product.updated_date,
+                is_active = business_product.is_active,
+                created_user_id = business_product.created_user_id,
+                id_product_type_id = business_product.id_product_type_id,
+                updated_user_id = business_product.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region
+        [HttpGet("ListAllBusinessProducts")]
+        public async Task<IActionResult> ListAllBusinessProducts()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   business_product";
+                connection.Open();
+                var groups = await connection.QueryAsync<BusinessProduct>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #endregion
+
+        #region BusinessProductType
+        #region Register BusinessProductType
+        [HttpPost("RegisterBusinessProductType")]
+        public async Task<IActionResult> RegisterBusinessProductTypeAsync([FromBody] BusinessProductType business_product_type)
+        {
+
+            int result = -1;
+            string insertQuery = "INSERT INTO business_product_type (name, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@name,@description,now(),now(),@is_active,@created_user_id,@updated_user_id) RETURNING id";
+            var queryArguments = new
+            {
+                name = business_product_type.name,
+                description = business_product_type.description,
+                created_date = business_product_type.created_date,
+                updated_date = business_product_type.updated_date,
+                is_active = business_product_type.is_active,
+                created_user_id = business_product_type.created_user_id,
+                updated_user_id = business_product_type.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Update BusinessProductType
+        [HttpPost("UpdateBusinessProductType")]
+        public async Task<IActionResult> UpdateBusinessProductType([FromBody] BusinessProductType business_product_type)
+        {
+
+            int result = -1;
+            string insertQuery = @"UPDATE business_product_type  SET 
+								name=@name, 
+								description=@description, 
+								created_date=@created_date, 
+								updated_date=now(), 
+								is_active=@is_active, 
+								created_user_id=@created_user_id, 
+								updated_user_id=@updated_user_id
+							WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_product_type.id,
+                name = business_product_type.name,
+                description = business_product_type.description,
+                created_date = business_product_type.created_date,
+                updated_date = business_product_type.updated_date,
+                is_active = business_product_type.is_active,
+                created_user_id = business_product_type.created_user_id,
+                updated_user_id = business_product_type.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region Delete BusinessProductType
+        [HttpPost("DeleteBusinessProductType")]
+        public async Task<IActionResult> DeleteBusinessProductType([FromBody] BusinessProductType business_product_type)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM business_product_type WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_product_type.id,
+                name = business_product_type.name,
+                description = business_product_type.description,
+                created_date = business_product_type.created_date,
+                updated_date = business_product_type.updated_date,
+                is_active = business_product_type.is_active,
+                created_user_id = business_product_type.created_user_id,
+                updated_user_id = business_product_type.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region
+        [HttpGet("ListAllBusinessProductTypes")]
+        public async Task<IActionResult> ListAllBusinessProductTypes()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   business_product_type";
+                connection.Open();
+                var groups = await connection.QueryAsync<BusinessProductType>(commandText);
                 connection.Close();
                 return Ok(groups);
 
