@@ -664,6 +664,248 @@ namespace FairyBE.Controllers
         #endregion
         #endregion
 
+        #region BusinessService
+        #region Register BusinessService
+        [HttpPost("RegisterBusinessService")]
+        public async Task<IActionResult> RegisterBusinessServiceAsync([FromBody] BusinessService business_service)
+        {
+
+            int result = -1;
+            string insertQuery = "INSERT INTO business_service (name, description, created_date, updated_date, is_active, created_user_id, id_service_type_id, updated_user_id) VALUES (@name,@description,now(),now(),@is_active,@created_user_id,@id_service_type_id,@updated_user_id) RETURNING id";
+            var queryArguments = new
+            {
+                name = business_service.name,
+                description = business_service.description,
+                is_active = business_service.is_active,
+                created_date = business_service.created_date,
+                updated_date = business_service.updated_date,
+                created_user_id = business_service.created_user_id,
+                id_service_type_id = business_service.id_service_type_id,
+                updated_user_id = business_service.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Update BusinessService
+        [HttpPost("UpdateBusinessService")]
+        public async Task<IActionResult> UpdateBusinessService([FromBody] BusinessService business_service)
+        {
+
+            int result = -1;
+            string insertQuery = @"UPDATE business_service  SET name=@name, description=@description, created_date=@created_date, updated_date=now(), is_active=@is_active, created_user_id=@created_user_id, id_service_type_id=@id_service_type_id, updated_user_id=@updated_user_id	WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_service.id,
+                name = business_service.name,
+                description = business_service.description,
+                is_active = business_service.is_active,
+                created_date = business_service.created_date,
+                updated_date = business_service.updated_date,
+                created_user_id = business_service.created_user_id,
+                id_service_type_id = business_service.id_service_type_id,
+                updated_user_id = business_service.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region Delete BusinessService
+        [HttpPost("DeleteBusinessService")]
+        public async Task<IActionResult> DeleteBusinessService([FromBody] BusinessService business_service)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM business_service WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_service.id,
+                name = business_service.name,
+                description = business_service.description,
+                is_active = business_service.is_active,
+                created_date = business_service.created_date,
+                updated_date = business_service.updated_date,
+                created_user_id = business_service.created_user_id,
+                id_service_type_id = business_service.id_service_type_id,
+                updated_user_id = business_service.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region
+        [HttpGet("ListAllBusinessServices")]
+        public async Task<IActionResult> ListAllBusinessServices()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   business_service";
+                connection.Open();
+                var groups = await connection.QueryAsync<BusinessService>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #endregion
+
+        #region BusinessServiceType
+        #region Register BusinessServiceType
+        [HttpPost("RegisterBusinessServiceType")]
+        public async Task<IActionResult> RegisterBusinessServiceTypeAsync([FromBody] BusinessServiceType business_service_type)
+        {
+
+            int result = -1;
+            string insertQuery = "INSERT INTO business_service_type (name, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@name,@description,now(),now(),@is_active,@created_user_id,@updated_user_id) RETURNING id";
+            var queryArguments = new
+            {
+                name = business_service_type.name,
+                description = business_service_type.description,
+                is_active = business_service_type.is_active,
+                created_date = business_service_type.created_date,
+                updated_date = business_service_type.updated_date,
+                created_user_id = business_service_type.created_user_id,
+                updated_user_id = business_service_type.updated_user_id
+
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Update BusinessServiceType
+        [HttpPost("UpdateBusinessServiceType")]
+        public async Task<IActionResult> UpdateBusinessServiceType([FromBody] BusinessServiceType business_service_type)
+        {
+
+            int result = -1;
+            string insertQuery = @"UPDATE business_service_type  SET name=@name, description=@description, created_date=@created_date, updated_date=now(), is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id	WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_service_type.id,
+                name = business_service_type.name,
+                description = business_service_type.description,
+                is_active = business_service_type.is_active,
+                created_date = business_service_type.created_date,
+                updated_date = business_service_type.updated_date,
+                created_user_id = business_service_type.created_user_id,
+                updated_user_id = business_service_type.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region Delete BusinessServiceType
+        [HttpPost("DeleteBusinessServiceType")]
+        public async Task<IActionResult> DeleteBusinessServiceType([FromBody] BusinessServiceType business_service_type)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM business_service_type WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_service_type.id,
+                name = business_service_type.name,
+                description = business_service_type.description,
+                is_active = business_service_type.is_active,
+                created_date = business_service_type.created_date,
+                updated_date = business_service_type.updated_date,
+                created_user_id = business_service_type.created_user_id,
+                updated_user_id = business_service_type.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region
+        [HttpGet("ListAllBusinessServiceTypes")]
+        public async Task<IActionResult> ListAllBusinessServiceTypes()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   business_service_type";
+                connection.Open();
+                var groups = await connection.QueryAsync<BusinessServiceType>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #endregion
+
 
     }
 }
