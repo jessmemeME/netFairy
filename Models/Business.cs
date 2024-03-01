@@ -247,7 +247,7 @@ namespace FairyBE.Models
     }
 
         
-    public class BusinessTaxTypeCountry
+    public class BusinessTaxTypeXCountry
     {
         public int id { get; set; }
         [Required] public int tax_type_id { get; set; }

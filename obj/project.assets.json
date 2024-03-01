@@ -938,11 +938,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jess\\Documents\\PROYECTO_HADA_MADRINA\\netFairy\\FairyBE.csproj",
+      "projectUniqueName": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\FairyBE.csproj",
       "projectName": "FairyBE",
-      "projectPath": "C:\\Users\\Jess\\Documents\\PROYECTO_HADA_MADRINA\\netFairy\\FairyBE.csproj",
+      "projectPath": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\FairyBE.csproj",
       "packagesPath": "C:\\Users\\Jess\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jess\\Documents\\PROYECTO_HADA_MADRINA\\netFairy\\obj\\",
+      "outputPath": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Jess\\AppData\\Roaming\\NuGet\\NuGet.Config",
