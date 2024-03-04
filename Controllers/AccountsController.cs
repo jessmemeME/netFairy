@@ -84,8 +84,10 @@ namespace FairyBE.Controllers
         public async Task<IActionResult> RegisterAccountsAsync([FromBody] Accounts accounts)
         {
             int result = -1;
-            string insertQuery = "INSERT INTO accounts_user (password, last_login, is_superuser, email, is_staff, is_active, date_joined, last_updated) VALUES (@password, now(), @is_superuser, @email, @is_staff, @is_active, now(), now()) RETURNING Id";
+            string insertQuery = "INSERT INTO accounts_user (password, last_login, is_superuser, email, is_staff, is_active, date_joined, last_updated, auth_code) VALUES " +
+                "(@password, now(), @is_superuser, @email, @is_staff, @is_active, now(), now(), @auth_code) RETURNING Id";
 
+            string authenticationCode = GenerateRandomCode();
             var queryArguments = new
             {
                 password = accounts.password,
@@ -95,17 +97,18 @@ namespace FairyBE.Controllers
                 is_staff = accounts.is_staff,
                 is_active = accounts.is_active,
                 date_joined = accounts.date_joined,
-                last_updated = accounts.last_updated
+                last_updated = accounts.last_updated,
+                auth_code = authenticationCode,
+
             };
 
             try
             {
                 connection.Open();
                 result = await connection.ExecuteAsync(insertQuery, queryArguments);
-                connection.Close();
 
                 // Generate authentication code
-                string authenticationCode = GenerateRandomCode();
+               
 
                 // Send email with authentication code
                 string recipientEmail = accounts.email;
@@ -120,7 +123,7 @@ namespace FairyBE.Controllers
             {
                 return BadRequest(new { Result = -1, Message = "Error al enviar el correo electronico." });
 
-            }
+            }finally { connection.Close(); }
 
         }
         #endregion

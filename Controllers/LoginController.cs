@@ -3,6 +3,8 @@ using FairyBE.Models;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using Newtonsoft.Json;
+using System.Net.Mail;
+using System.Net;
 
 namespace FairyBE.Controllers
 {
@@ -52,6 +54,69 @@ namespace FairyBE.Controllers
             }
         }
 
-       
+        [HttpPost("VerifyCode")]
+        public async Task<IActionResult> VerifyCode(Email email ) {
+            string query = @"select auth_code from accounts_user au where au.email like @email";
+            var queryArguments = new
+            {
+                email = email.email
+            };
+            try {
+                connection.Open();
+                var queryResult = await connection.QueryFirstAsync<Code>(query, queryArguments);
+                return Ok(queryResult);
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            } finally { 
+                connection.Close();
+            }
+        }
+
+        [HttpPost("ResetCode")]
+        public async Task<IActionResult> ResetCode(String email) {
+            string authenticationCode = GenerateRandomCode();
+            string query = @"update accounts_user set auth_code = @aut_code where email like @email";
+            var queryArguments = new
+            {
+                email = email,
+                aut_code = authenticationCode
+            };
+            try {
+                connection.Open();
+                var queryResult = await connection.ExecuteAsync(query, queryArguments);
+                string recipientEmail = email;
+                string emailSubject = "Authentication Code";
+                string emailMessage = $"Su codigo de autenticación es: {authenticationCode}";
+
+                SendEmail(recipientEmail, emailSubject, emailMessage);
+                return Ok(authenticationCode);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            finally { connection.Close(); }
+        }
+
+        private string GenerateRandomCode()
+        {
+            const string caracteresPermitidos = "0123456789";
+            Random random = new Random();
+            return new string(Enumerable.Repeat(caracteresPermitidos, 7)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private void SendEmail(string recipientEmail, string emailSubject, string emailMessage)
+        {
+
+            var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+            {
+                Credentials = new NetworkCredential("091141768341f1", "ef884dc1011a0e"),
+                EnableSsl = true
+            };
+            client.Send("from@example.com", "to@example.com", emailSubject, emailMessage);
+
+        }
+
     }
 }
