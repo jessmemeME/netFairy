@@ -1,17 +1,6 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\a_ort\\Documents\\Desarrollos\\Jess\\netFairy\\FairyBE.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\a_ort\\Documents\\Desarrollos\\Jess\\netFairy\\FairyBE.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\a_ort\\Documents\\Desarrollos\\Jess\\netFairy\\FairyBE.csproj",
-        "projectName": "FairyBE",
-        "projectPath": "C:\\Users\\a_ort\\Documents\\Desarrollos\\Jess\\netFairy\\FairyBE.csproj",
-        "packagesPath": "C:\\Users\\a_ort\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\a_ort\\Documents\\Desarrollos\\Jess\\netFairy\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

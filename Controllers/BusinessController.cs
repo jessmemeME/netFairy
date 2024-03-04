@@ -906,6 +906,379 @@ namespace FairyBE.Controllers
         #endregion
         #endregion
 
+        #region BusinessTax
+        #region Register BusinessTax
+        [HttpPost("RegisterBusinessTax")]
+        public async Task<IActionResult> RegisterBusinessTaxAsync([FromBody] BusinessTax business_tax)
+        {
+
+            int result = -1;
+            string insertQuery = "INSERT INTO business_tax (name, description, amount, percent, time_present, created_date, updated_date, is_active, created_user_id, id_tax_type_id, updated_user_id) VALUES (@name,@description,@amount,@percent,@time_present,now(),now(),@is_active,@created_user_id,@id_tax_type_id,@updated_user_id) RETURNING id";
+            var queryArguments = new
+            {
+                name = business_tax.name,
+                description = business_tax.description,
+                amount = business_tax.amount,
+                percent = business_tax.percent,
+                time_present = business_tax.time_present,
+                is_active = business_tax.is_active,
+                created_date = business_tax.created_date,
+                updated_date = business_tax.updated_date,
+                created_user_id = business_tax.created_user_id,
+                id_tax_type_id = business_tax.id_tax_type_id,
+                updated_user_id = business_tax.updated_user_id
+
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Update BusinessTax
+        [HttpPost("UpdateBusinessTax")]
+        public async Task<IActionResult> UpdateBusinessTax([FromBody] BusinessTax business_tax)
+        {
+
+            int result = -1;
+            string insertQuery = @"UPDATE business_tax  SET name=@name, description=@description, amount=@amount, percent=@percent, time_present=@time_present, created_date=@created_date, updated_date=now(), is_active=@is_active, created_user_id=@created_user_id, id_tax_type_id=@id_tax_type_id, updated_user_id=@updated_user_id	WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_tax.id,
+                name = business_tax.name,
+                description = business_tax.description,
+                amount = business_tax.amount,
+                percent = business_tax.percent,
+                time_present = business_tax.time_present,
+                is_active = business_tax.is_active,
+                created_date = business_tax.created_date,
+                updated_date = business_tax.updated_date,
+                created_user_id = business_tax.created_user_id,
+                id_tax_type_id = business_tax.id_tax_type_id,
+                updated_user_id = business_tax.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region Delete BusinessTax
+        [HttpPost("DeleteBusinessTax")]
+        public async Task<IActionResult> DeleteBusinessTax([FromBody] BusinessTax business_tax)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM business_tax WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_tax.id,
+                name = business_tax.name,
+                description = business_tax.description,
+                amount = business_tax.amount,
+                percent = business_tax.percent,
+                time_present = business_tax.time_present,
+                is_active = business_tax.is_active,
+                created_date = business_tax.created_date,
+                updated_date = business_tax.updated_date,
+                created_user_id = business_tax.created_user_id,
+                id_tax_type_id = business_tax.id_tax_type_id,
+                updated_user_id = business_tax.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region ListAllBusinessTaxs
+        [HttpGet("ListAllBusinessTaxs")]
+        public async Task<IActionResult> ListAllBusinessTaxs()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   business_tax";
+                connection.Open();
+                var groups = await connection.QueryAsync<BusinessTax>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #endregion
+
+        #region BusinessTaxType
+        #region Register BusinessTaxType
+        [HttpPost("RegisterBusinessTaxType")]
+        public async Task<IActionResult> RegisterBusinessTaxTypeAsync([FromBody] BusinessTaxType business_tax_type)
+        {
+
+            int result = -1;
+            string insertQuery = "INSERT INTO business_tax_type (name, siglas, description, created_date, updated_date, is_active, created_user_id, updated_user_id) VALUES (@name,@siglas,@description,now(),now(),@is_active,@created_user_id,@updated_user_id) RETURNING id";
+            var queryArguments = new
+            {
+                name = business_tax_type.name,
+                siglas = business_tax_type.siglas,
+                description = business_tax_type.description,
+                is_active = business_tax_type.is_active,
+                created_date = business_tax_type.created_date,
+                updated_date = business_tax_type.updated_date,
+                created_user_id = business_tax_type.created_user_id,
+                updated_user_id = business_tax_type.updated_user_id
+
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Update BusinessTaxType
+        [HttpPost("UpdateBusinessTaxType")]
+        public async Task<IActionResult> UpdateBusinessTaxType([FromBody] BusinessTaxType business_tax_type)
+        {
+
+            int result = -1;
+            string insertQuery = @"UPDATE business_tax_type  SET name=@name, siglas=@siglas, description=@description, created_date=@created_date, updated_date=now(), is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_tax_type.id,
+                name = business_tax_type.name,
+                siglas = business_tax_type.siglas,
+                description = business_tax_type.description,
+                is_active = business_tax_type.is_active,
+                created_date = business_tax_type.created_date,
+                updated_date = business_tax_type.updated_date,
+                created_user_id = business_tax_type.created_user_id,
+                updated_user_id = business_tax_type.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region Delete BusinessTaxType
+        [HttpPost("DeleteBusinessTaxType")]
+        public async Task<IActionResult> DeleteBusinessTaxType([FromBody] BusinessTaxType business_tax_type)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM business_tax_type WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_tax_type.id,
+                name = business_tax_type.name,
+                siglas = business_tax_type.siglas,
+                description = business_tax_type.description,
+                is_active = business_tax_type.is_active,
+                created_date = business_tax_type.created_date,
+                updated_date = business_tax_type.updated_date,
+                created_user_id = business_tax_type.created_user_id,
+                updated_user_id = business_tax_type.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region ListAllBusinessTaxTypes
+        [HttpGet("ListAllBusinessTaxTypes")]
+        public async Task<IActionResult> ListAllBusinessTaxTypes()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   business_tax_type";
+                connection.Open();
+                var groups = await connection.QueryAsync<BusinessTaxType>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #endregion
+
+        #region BusinessTaxTypeXCountry
+        #region Register BusinessTaxTypeXCountry
+        [HttpPost("RegisterBusinessTaxTypeXCountry")]
+        public async Task<IActionResult> RegisterBusinessTaxTypeXCountryAsync([FromBody] BusinessTaxTypeXCountry business_tax_type_id_country)
+        {
+
+            int result = -1;
+            string insertQuery = "INSERT INTO business_tax_type_id_country (tax_type_id, country_id, is_active, created_user_id, updated_user_id, created_date, updated_date) VALUES (@tax_type_id,@country_id,@is_active,@created_user_id,@updated_user_id,now(),now()) RETURNING id";
+            var queryArguments = new
+            {
+                tax_type_id = business_tax_type_id_country.tax_type_id,
+                country_id = business_tax_type_id_country.country_id,
+                is_active = business_tax_type_id_country.is_active,
+                created_date = business_tax_type_id_country.created_date,
+                updated_date = business_tax_type_id_country.updated_date,
+                created_user_id = business_tax_type_id_country.created_user_id,
+                updated_user_id = business_tax_type_id_country.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Update BusinessTaxTypeXCountry
+        [HttpPost("UpdateBusinessTaxTypeXCountry")]
+        public async Task<IActionResult> UpdateBusinessTaxTypeXCountry([FromBody] BusinessTaxTypeXCountry business_tax_type_id_country)
+        {
+
+            int result = -1;
+            string insertQuery = @"UPDATE business_tax_type_id_country  SET tax_type_id=@, country_id=@, is_active=@is_active, created_user_id=@created_user_id, updated_user_id=@updated_user_id, created_date=@created_date, updated_date=now() WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_tax_type_id_country.id,
+                tax_type_id = business_tax_type_id_country.tax_type_id,
+                country_id = business_tax_type_id_country.country_id,
+                is_active = business_tax_type_id_country.is_active,
+                created_date = business_tax_type_id_country.created_date,
+                updated_date = business_tax_type_id_country.updated_date,
+                created_user_id = business_tax_type_id_country.created_user_id,
+                updated_user_id = business_tax_type_id_country.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region Delete BusinessTaxTypeXCountry
+        [HttpPost("DeleteBusinessTaxTypeXCountry")]
+        public async Task<IActionResult> DeleteBusinessTaxTypeXCountry([FromBody] BusinessTaxTypeXCountry business_tax_type_id_country)
+        {
+
+            int result = -1;
+            string insertQuery = "DELETE FROM business_tax_type_id_country WHERE id = @id";
+            var queryArguments = new
+            {
+                id = business_tax_type_id_country.id,
+                tax_type_id = business_tax_type_id_country.tax_type_id,
+                country_id = business_tax_type_id_country.country_id,
+                is_active = business_tax_type_id_country.is_active,
+                created_date = business_tax_type_id_country.created_date,
+                updated_date = business_tax_type_id_country.updated_date,
+                created_user_id = business_tax_type_id_country.created_user_id,
+                updated_user_id = business_tax_type_id_country.updated_user_id
+            };
+            try
+            {
+                connection.Open();
+                result = await connection.ExecuteAsync(insertQuery, queryArguments);
+                connection.Close();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #region ListAllBusinessTaxTypeXCountrys
+        [HttpGet("ListAllBusinessTaxTypeXCountrys")]
+        public async Task<IActionResult> ListAllBusinessTaxTypeXCountrys()
+        {
+
+            try
+            {
+                string commandText = "SELECT * FROM   business_tax_type_id_country";
+                connection.Open();
+                var groups = await connection.QueryAsync<BusinessTaxTypeXCountry>(commandText);
+                connection.Close();
+                return Ok(groups);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        #endregion
+        #endregion
 
     }
 }

@@ -1009,6 +1009,86 @@
   },
   {
     "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "DeleteBusinessInvoiceType",
+    "RelativePath": "Business/DeleteBusinessInvoiceType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_invoice_type",
+        "Type": "FairyBE.Models.BusinessInvoiceType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "DeleteBusinessProduct",
+    "RelativePath": "Business/DeleteBusinessProduct",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_product",
+        "Type": "FairyBE.Models.BusinessProduct",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "DeleteBusinessProductType",
+    "RelativePath": "Business/DeleteBusinessProductType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_product_type",
+        "Type": "FairyBE.Models.BusinessProductType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "DeleteBusinessService",
+    "RelativePath": "Business/DeleteBusinessService",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_service",
+        "Type": "FairyBE.Models.BusinessService",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "DeleteBusinessServiceType",
+    "RelativePath": "Business/DeleteBusinessServiceType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_service_type",
+        "Type": "FairyBE.Models.BusinessServiceType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
     "Method": "ListAllBusinessColors",
     "RelativePath": "Business/ListAllBusinessColors",
     "HttpMethod": "GET",
@@ -1021,6 +1101,56 @@
     "ContainingType": "FairyBE.Controllers.BusinessController",
     "Method": "ListAllBusinessInvoiceDatas",
     "RelativePath": "Business/ListAllBusinessInvoiceDatas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "ListAllBusinessInvoiceTypes",
+    "RelativePath": "Business/ListAllBusinessInvoiceTypes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "ListAllBusinessProductTypes",
+    "RelativePath": "Business/ListAllBusinessProductTypes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "ListAllBusinessProducts",
+    "RelativePath": "Business/ListAllBusinessProducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "ListAllBusinessServiceTypes",
+    "RelativePath": "Business/ListAllBusinessServiceTypes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "ListAllBusinessServices",
+    "RelativePath": "Business/ListAllBusinessServices",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1061,6 +1191,86 @@
   },
   {
     "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "RegisterBusinessInvoiceTypeAsync",
+    "RelativePath": "Business/RegisterBusinessInvoiceType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_invoice_type",
+        "Type": "FairyBE.Models.BusinessInvoiceType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "RegisterBusinessProductAsync",
+    "RelativePath": "Business/RegisterBusinessProduct",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_product",
+        "Type": "FairyBE.Models.BusinessProduct",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "RegisterBusinessProductTypeAsync",
+    "RelativePath": "Business/RegisterBusinessProductType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_product_type",
+        "Type": "FairyBE.Models.BusinessProductType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "RegisterBusinessServiceAsync",
+    "RelativePath": "Business/RegisterBusinessService",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_service",
+        "Type": "FairyBE.Models.BusinessService",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "RegisterBusinessServiceTypeAsync",
+    "RelativePath": "Business/RegisterBusinessServiceType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_service_type",
+        "Type": "FairyBE.Models.BusinessServiceType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
     "Method": "UpdateBusinessColor",
     "RelativePath": "Business/UpdateBusinessColor",
     "HttpMethod": "POST",
@@ -1086,6 +1296,86 @@
       {
         "Name": "business_invoice_data",
         "Type": "FairyBE.Models.BusinessInvoiceData",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "UpdateBusinessInvoiceType",
+    "RelativePath": "Business/UpdateBusinessInvoiceType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_invoice_type",
+        "Type": "FairyBE.Models.BusinessInvoiceType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "UpdateBusinessProduct",
+    "RelativePath": "Business/UpdateBusinessProduct",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_product",
+        "Type": "FairyBE.Models.BusinessProduct",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "UpdateBusinessProductType",
+    "RelativePath": "Business/UpdateBusinessProductType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_product_type",
+        "Type": "FairyBE.Models.BusinessProductType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "UpdateBusinessService",
+    "RelativePath": "Business/UpdateBusinessService",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_service",
+        "Type": "FairyBE.Models.BusinessService",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "UpdateBusinessServiceType",
+    "RelativePath": "Business/UpdateBusinessServiceType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_service_type",
+        "Type": "FairyBE.Models.BusinessServiceType",
         "IsRequired": true
       }
     ],
@@ -1144,6 +1434,296 @@
       {
         "Name": "clients_client",
         "Type": "FairyBE.Models.Client",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "DeletePeople",
+    "RelativePath": "People/DeletePeople",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people",
+        "Type": "FairyBE.Models.People",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "DeletePeopleContact",
+    "RelativePath": "People/DeletePeopleContact",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_contact",
+        "Type": "FairyBE.Models.PeopleContact",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "DeletePeopleInvoiceData",
+    "RelativePath": "People/DeletePeopleInvoiceData",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_invoice_data",
+        "Type": "FairyBE.Models.PeopleInvoiceData",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "DeletePeopleLocation",
+    "RelativePath": "People/DeletePeopleLocation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_location",
+        "Type": "FairyBE.Models.PeopleLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "DeletePeopleRelationshipBusiness",
+    "RelativePath": "People/DeletePeopleRelationshipBusiness",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_relationship_business",
+        "Type": "FairyBE.Models.PeopleRelationshipBusiness",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "ListAllPeopleContacts",
+    "RelativePath": "People/ListAllPeopleContacts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "ListAllPeopleInvoiceDatas",
+    "RelativePath": "People/ListAllPeopleInvoiceDatas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "ListAllPeopleLocations",
+    "RelativePath": "People/ListAllPeopleLocations",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "ListAllPeopleRelationshipBusinesss",
+    "RelativePath": "People/ListAllPeopleRelationshipBusinesss",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "ListAllPeoples",
+    "RelativePath": "People/ListAllPeoples",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "RegisterPeopleAsync",
+    "RelativePath": "People/RegisterPeople",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people",
+        "Type": "FairyBE.Models.People",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "RegisterPeopleContactAsync",
+    "RelativePath": "People/RegisterPeopleContact",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_contact",
+        "Type": "FairyBE.Models.PeopleContact",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "RegisterPeopleInvoiceDataAsync",
+    "RelativePath": "People/RegisterPeopleInvoiceData",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_invoice_data",
+        "Type": "FairyBE.Models.PeopleInvoiceData",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "RegisterPeopleLocationAsync",
+    "RelativePath": "People/RegisterPeopleLocation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_location",
+        "Type": "FairyBE.Models.PeopleLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "RegisterPeopleRelationshipBusinessAsync",
+    "RelativePath": "People/RegisterPeopleRelationshipBusiness",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_relationship_business",
+        "Type": "FairyBE.Models.PeopleRelationshipBusiness",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "UpdatePeople",
+    "RelativePath": "People/UpdatePeople",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people",
+        "Type": "FairyBE.Models.People",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "UpdatePeopleContact",
+    "RelativePath": "People/UpdatePeopleContact",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_contact",
+        "Type": "FairyBE.Models.PeopleContact",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "UpdatePeopleInvoiceData",
+    "RelativePath": "People/UpdatePeopleInvoiceData",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_invoice_data",
+        "Type": "FairyBE.Models.PeopleInvoiceData",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "UpdatePeopleLocation",
+    "RelativePath": "People/UpdatePeopleLocation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_location",
+        "Type": "FairyBE.Models.PeopleLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.PeopleController",
+    "Method": "UpdatePeopleRelationshipBusiness",
+    "RelativePath": "People/UpdatePeopleRelationshipBusiness",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_people_relationship_business",
+        "Type": "FairyBE.Models.PeopleRelationshipBusiness",
         "IsRequired": true
       }
     ],
