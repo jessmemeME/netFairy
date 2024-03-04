@@ -13,4 +13,12 @@
         public required string  mensaje { get; set; }
         public required string respuesta { get; set; }
     }
+    public class Email { 
+        public required string email { get; set; }
+    }
+
+    public class Code
+    {
+        public required string auth_code { get; set; }
+    }
 }
