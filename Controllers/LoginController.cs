@@ -98,6 +98,28 @@ namespace FairyBE.Controllers
             finally { connection.Close(); }
         }
 
+        [HttpPost("Validated")]
+        public async Task<IActionResult> Validated(Email email)
+        {
+            string authenticationCode = GenerateRandomCode();
+            string query = @"update accounts_user set is_verified=true where email like @email";
+            var queryArguments = new
+            {
+                email = email.email,
+            };
+            try
+            {
+                connection.Open();
+                var queryResult = await connection.ExecuteAsync(query, queryArguments);
+                return Ok(queryResult);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            finally { connection.Close(); }
+        }
+
         private string GenerateRandomCode()
         {
             const string caracteresPermitidos = "0123456789";
