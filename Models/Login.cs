@@ -14,7 +14,7 @@
         public required string respuesta { get; set; }
     }
     public class Email { 
-        public required string email { get; set; }
+        public string email { get; set; }
     }
 
     public class Code
