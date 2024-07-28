@@ -1440,6 +1440,25 @@
     "ReturnTypes": []
   },
   {
+<<<<<<< Updated upstream
+=======
+    "ContainingType": "FairyBE.Controllers.LoginController",
+    "Method": "Login",
+    "RelativePath": "Login/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "FairyBE.Models.Login",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+>>>>>>> Stashed changes
     "ContainingType": "FairyBE.Controllers.PeopleController",
     "Method": "DeletePeople",
     "RelativePath": "People/DeletePeople",
