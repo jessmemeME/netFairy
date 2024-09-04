@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ODCmGnJntlG5xWhks3DHZhr0Si19FPql/2dnEIRF9hELghVuX+dTPxWcA7FjEl4LYwYHduv1oqNE6eaoUMr0fw==",
+  "dgSpecHash": "0HrIfM+6AsE=",
   "success": true,
   "projectFilePath": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\FairyBE.csproj",
   "expectedPackageFiles": [
@@ -24,6 +24,16 @@
     "C:\\Users\\Jess\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "El paquete \"Npgsql\" 8.0.1 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-x9vc-6hfv-hg8c",
+      "libraryId": "Npgsql",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

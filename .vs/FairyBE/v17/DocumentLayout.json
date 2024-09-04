@@ -1,36 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\",
-<<<<<<< Updated upstream
-  "Documents": [],
-=======
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|c:\\users\\jess\\onedrive\\documentos\\tesis\\netfairy\\models\\business.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|solutionrelative:models\\business.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|c:\\users\\jess\\onedrive\\documentos\\tesis\\netfairy\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|solutionrelative:controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|c:\\users\\jess\\onedrive\\documentos\\tesis\\netfairy\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|solutionrelative:models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|c:\\users\\jess\\onedrive\\documentos\\tesis\\netfairy\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|c:\\users\\jess\\onedrive\\documentos\\tesis\\netfairy\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|c:\\users\\jess\\onedrive\\documentos\\tesis\\netfairy\\controllers\\basicinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|solutionrelative:controllers\\basicinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|c:\\users\\jess\\onedrive\\documentos\\tesis\\netfairy\\models\\basicinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FDF9ABF-E3AD-4590-8EA5-B6049337B16F}|FairyBE.csproj|solutionrelative:models\\basicinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
->>>>>>> Stashed changes
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -38,19 +18,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-<<<<<<< Updated upstream
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-=======
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
->>>>>>> Stashed changes
             },
             {
               "$type": "Bookmark",
@@ -62,80 +34,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ClientsController.cs",
-              "DocumentMoniker": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Controllers\\ClientsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ClientsController.cs",
-              "ToolTip": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Controllers\\ClientsController.cs",
-              "RelativeToolTip": "Controllers\\ClientsController.cs",
-              "ViewState": "AQIAAFwAAAAAAAAAAAAIwJAAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-28T19:51:56.551Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Business.cs",
-              "DocumentMoniker": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Models\\Business.cs",
-              "RelativeDocumentMoniker": "Models\\Business.cs",
-              "ToolTip": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Models\\Business.cs",
-              "RelativeToolTip": "Models\\Business.cs",
-              "ViewState": "AQIAAPYAAAAAAAAAAAAuwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-28T19:38:40.547Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Client.cs",
-              "DocumentMoniker": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Models\\Client.cs",
-              "RelativeDocumentMoniker": "Models\\Client.cs",
-              "ToolTip": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Models\\Client.cs",
-              "RelativeToolTip": "Models\\Client.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-28T19:28:45.04Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Properties\\launchSettings.json",
-              "RelativeToolTip": "Properties\\launchSettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAABHAAAA",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAUAAACPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-07-22T19:49:31.562Z",
+              "WhenOpened": "2024-08-11T20:56:51.199Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "BasicInfo.cs",
-              "DocumentMoniker": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Models\\BasicInfo.cs",
-              "RelativeDocumentMoniker": "Models\\BasicInfo.cs",
-              "ToolTip": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Models\\BasicInfo.cs",
-              "RelativeToolTip": "Models\\BasicInfo.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAIMAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-15T13:24:15.977Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "BasicInfoController.cs",
               "DocumentMoniker": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Controllers\\BasicInfoController.cs",
               "RelativeDocumentMoniker": "Controllers\\BasicInfoController.cs",
               "ToolTip": "C:\\Users\\Jess\\OneDrive\\Documentos\\Tesis\\netFairy\\Controllers\\BasicInfoController.cs",
               "RelativeToolTip": "Controllers\\BasicInfoController.cs",
-              "ViewState": "AQIAAF8AAAAAAAAAAAAlwF4AAAAmAAAA",
+              "ViewState": "AQIAALEBAAAAAAAAAAAtwMgBAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T19:46:27.712Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-11T19:03:53.515Z"
             }
           ]
         }
