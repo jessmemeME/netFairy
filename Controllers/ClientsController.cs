@@ -142,7 +142,7 @@ namespace FairyBE.Controllers
         }
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
-        [HttpGet("ListAllClientss")]
+        [HttpGet("ListAllClients")]
         public async Task<IActionResult> ListAllClientss()
         {
 
