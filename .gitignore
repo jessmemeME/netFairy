@@ -132,3 +132,12 @@ $RECYCLE.BIN/
 
 _NCrunch*
 .vs/FairyBE/FileContentIndex/68b8ca77-7871-46ee-a5d9-65f6878828de.vsidx
+.vs/FairyBE/DesignTimeBuild/.dtbcache.v2
+.vs/FairyBE/DesignTimeBuild/.dtbcache.v2
+.vs/FairyBE/DesignTimeBuild/.dtbcache.v2
+*.vsidx
+*.vsidx
+*.props
+.vs/FairyBE/FileContentIndex/a301492d-d7e0-4f8d-9636-56b9c5c97058.vsidx
+/obj
+*.pdb
