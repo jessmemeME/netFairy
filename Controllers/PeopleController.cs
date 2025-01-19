@@ -64,10 +64,14 @@ namespace FairyBE.Controllers
             try
             {
                 connection.Open();
-                result = await connection.ExecuteAsync(insertQuery, queryArguments);
-                connection.Close();
-                return Ok(result);
-            }
+				// Aquí usamos QuerySingleOrDefaultAsync para obtener el ID
+				var id = await connection.QuerySingleOrDefaultAsync<int>(insertQuery, queryArguments);
+
+				connection.Close();
+
+				// Retornar el ID insertado
+				return Ok(new { id = id });
+			}
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -177,12 +181,40 @@ namespace FairyBE.Controllers
 
             }
         }
-        #endregion
-        #endregion
+		#endregion
 
-        #region PeopleContact
-        #region Register PeopleContact
-        [HttpPost("RegisterPeopleContact")]
+		#region
+		[HttpGet("PeobleByDocumentNumber")]
+		public async Task<IActionResult> PeobleByDocumentNumber([FromQuery] string document_number, [FromQuery] int document_type_id)
+		{
+
+			try
+			{
+				string commandText = "SELECT * FROM   basic_info_people where document_number=@document_number and document_type_id=@document_type_id";
+				var queryArguments = new
+				{
+					document_number,
+					document_type_id
+				};
+				connection.Open();
+				var groups = await connection.QueryAsync<People>(commandText);
+				connection.Close();
+				return Ok(groups);
+
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+
+			}
+		}
+		#endregion
+
+		#endregion
+
+		#region PeopleContact
+		#region Register PeopleContact
+		[HttpPost("RegisterPeopleContact")]
         public async Task<IActionResult> RegisterPeopleContactAsync([FromBody] PeopleContact basic_info_people_contact)
         {
 
