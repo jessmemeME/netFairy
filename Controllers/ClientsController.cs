@@ -70,9 +70,79 @@ namespace FairyBE.Controllers
                 
             }
         }
+		///---------------------
+		[HttpPost("RegisterClientsWithPeopleStep1")]
+		public async Task<IActionResult> RegisterClientsWithPeopleStep1Async([FromBody] RegisterClientsWithPeopleRequest request)
+		{
+			int peopleId = -1;
 
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        [HttpPost("UpdateClients")]
+			string peopleInsertQuery = @"
+			INSERT INTO basic_info_people 
+			(first_name, last_name, document_number, description, created_date, updated_date, is_active, age_group_id, created_user_id, document_type_id, gender_id, type_of_diner_id, updated_user_id) 
+			VALUES 
+			(@first_name, @last_name, @document_number, @description, now(), now(), @is_active, @age_group_id, @created_user_id, @document_type_id, @gender_id, @type_of_diner_id, @updated_user_id) 
+			RETURNING id";
+
+			var peopleQueryArguments = new
+			{
+				request.BasicInfoPeople.first_name,
+				request.BasicInfoPeople.last_name,
+				request.BasicInfoPeople.document_number,
+				request.BasicInfoPeople.description,
+				request.BasicInfoPeople.is_active,
+				request.BasicInfoPeople.age_group_id,
+				request.BasicInfoPeople.created_user_id,
+				request.BasicInfoPeople.document_type_id,
+				request.BasicInfoPeople.gender_id,
+				request.BasicInfoPeople.type_of_diner_id,
+				request.BasicInfoPeople.updated_user_id
+			};
+
+			try
+			{
+				connection.Open();
+				peopleId = await connection.QuerySingleOrDefaultAsync<int>(peopleInsertQuery, peopleQueryArguments);
+				connection.Close();
+
+				if (peopleId > 0)
+				{
+					string clientInsertQuery = @"
+                INSERT INTO clients_client 
+                (type, name, description, is_confirmated, created_date, updated_date, is_active, created_user_id, people_id, updated_user_id) 
+                VALUES 
+                (@type, @name, @description, @is_confirmated, now(), now(), @is_active, @created_user_id, @people_id, @updated_user_id) 
+                RETURNING id";
+
+					var clientQueryArguments = new
+					{
+						request.ClientsClient.type,
+						request.ClientsClient.name,
+						request.ClientsClient.description,
+						request.ClientsClient.is_confirmated,
+						request.ClientsClient.is_active,
+						request.ClientsClient.created_user_id,
+						people_id = peopleId,
+						request.ClientsClient.updated_user_id
+					};
+
+					connection.Open();
+					var clientId = await connection.QuerySingleOrDefaultAsync<int>(clientInsertQuery, clientQueryArguments);
+					connection.Close();
+
+					return Ok(new { clientId, peopleId });
+				}
+
+				return BadRequest("Failed to insert People.");
+			}
+			catch (Exception ex)
+			{
+				connection.Close();
+				return BadRequest(ex.Message);
+			}
+		}
+
+		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		[HttpPost("UpdateClients")]
         public async Task<IActionResult> UpdateClients([FromBody] Client clients_client)
         {
 
