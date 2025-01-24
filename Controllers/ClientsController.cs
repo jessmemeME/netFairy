@@ -72,7 +72,7 @@ namespace FairyBE.Controllers
         }
 		///---------------------
 		[HttpPost("RegisterClientsWithPeopleStep1")]
-		public async Task<IActionResult> RegisterClientsWithPeopleStep1Async([FromBody] RegisterClientsWithPeopleRequest request)
+		public async Task<IActionResult> RegisterClientsAllForm([FromBody] RegisterClientsWithPeopleRequest request)
 		{
 			int peopleId = -1;
 
@@ -102,7 +102,7 @@ namespace FairyBE.Controllers
 			{
 				connection.Open();
 				peopleId = await connection.QuerySingleOrDefaultAsync<int>(peopleInsertQuery, peopleQueryArguments);
-				connection.Close();
+				//connection.Close();
 
 				if (peopleId > 0)
 				{
@@ -125,14 +125,176 @@ namespace FairyBE.Controllers
 						request.ClientsClient.updated_user_id
 					};
 
-					connection.Open();
+					//connection.Open();
 					var clientId = await connection.QuerySingleOrDefaultAsync<int>(clientInsertQuery, clientQueryArguments);
-					connection.Close();
+					//connection.Close();
+
+					string locationInsertQuery = @"";
+					
+					if (request.Locations != null)
+					{
+						foreach (var location in request.Locations)
+						{
+							locationInsertQuery = @"INSERT INTO public.locations_location_tb (name, description, street1, street2, house_number, floor, building_name,
+                                          latitude, longitude, observation, photo, is_main_location, created_date,
+                                          updated_date, is_active, city_id, country_id, created_user_id, departament_id,
+                                          id_location_type_id, updated_user_id)
+										  values (@name, @description, @street1, @street2, @house_number, @floor, @building_name,
+										  @latitude, @longitude, @observation, @photo, @is_main_location, now(),
+										  now(), @is_active, @city_id, @country_id, @created_user_id, @departament_id,
+										  @id_location_type_id, @updated_user_id) RETURNING id";
+
+							var locationArguments = new
+							{
+								location.name,
+								location.description,
+								location.street1,
+								location.street2,
+								location.house_number,
+								location.floor,
+								location.building_name,
+								location.latitude,
+								location.longitude,
+								location.observation,
+								location.photo,
+								location.is_main_location,
+								location.is_active,
+								location.city_id,
+								location.country_id,
+								location.created_user_id,
+								location.departament_id,
+								location.id_location_type_id,
+								location.updated_user_id
+							};
+
+							//connection.Open();
+							var locationId = await connection.QuerySingleOrDefaultAsync<int>(locationInsertQuery, locationArguments);
+							//connection.Close();
+
+							var basicInfoPeopleLocationInsertQuery =
+							@"INSERT INTO public.basic_info_people_location (people_id, location_tb_id, is_active, created_user_id, updated_user_id,
+                                               created_date, updated_date)
+							values (@people_id, @location_tb_id, @is_active, @created_user_id, @updated_user_id, now(), now())";
+
+							var basicInfoPeopleLocationArguments = new
+							{
+								people_id = peopleId,
+								location_tb_id = locationId,
+								is_active = true,
+								created_user_id = request.BasicInfoPeople.created_user_id,
+								updated_user_id = request.BasicInfoPeople.updated_user_id
+							};
+
+							var basicInfoPeopleLocationId = await connection.ExecuteAsync(basicInfoPeopleLocationInsertQuery, basicInfoPeopleLocationArguments);
+						}
+					}
+
+					string contactInsertQuery = @"";
+
+					if (request.Contacts != null)
+					{
+						foreach (var contact in request.Contacts)
+						{
+							contactInsertQuery = @"INSERT INTO public.contacts_contact_tb (name, contact_data, verificated_token, is_verified, is_main_contact, description,
+										  created_date, updated_date, is_active, table_name, contact_type_id, created_user_id,
+										  updated_user_id)
+										  values (@name, @contact_data, @verificated_token, @is_verified, @is_main_contact, @description, now(),
+										  now(), @is_active, @table_name, @contact_type_id, @created_user_id, @updated_user_id) RETURNING id";
+
+							var contactArguments = new
+							{
+								contact.name,
+								contact.contact_data,
+								contact.verificated_token,
+								contact.is_verified,
+								contact.is_main_contact,
+								contact.description,
+								contact.is_active,
+								contact.table_name,
+								contact.contact_type_id,
+								contact.created_user_id,
+								contact.updated_user_id
+							};
+
+							//connection.Open();
+							var contactId = await connection.QuerySingleOrDefaultAsync<int>(contactInsertQuery, contactArguments);
+							//connection.Close();
+
+							var basicInfoPeopleContactInsertQuery =
+							@"INSERT INTO public.basic_info_people_contact (people_id, contact_tb_id, is_active, created_user_id, updated_user_id,
+											   created_date, updated_date)
+							values (@people_id, @contact_tb_id, @is_active, @created_user_id, @updated_user_id, now(), now())";
+
+							var basicInfoPeopleContactArguments = new
+							{
+								people_id = peopleId,
+								contact_tb_id = contactId,
+								is_active = true,
+								created_user_id = request.BasicInfoPeople.created_user_id,
+								updated_user_id = request.BasicInfoPeople.updated_user_id
+							};
+
+							var basicInfoPeopleContactId = await connection.ExecuteAsync(basicInfoPeopleContactInsertQuery, basicInfoPeopleContactArguments);
+						}
+					}
+
+					string businessInvoiceDataInsertQuery = @"";
+					/* [Required] public string? name { get; set; }
+        [Required] public string? document_number { get; set; }
+        [Required] public string? description { get; set; }
+        [Required] public DateTime created_date { get; set; }
+        [Required] public DateTime updated_date { get; set; }
+        [Required] public bool is_active { get; set; }
+        [Required] public int created_user_id { get; set; }
+        [Required] public int updated_user_id { get; set; }*/
+
+					if (request.BusinessInvoiceData != null)
+					{
+						foreach (var businessInvoiceData in request.BusinessInvoiceData)
+						{
+							businessInvoiceDataInsertQuery = @"INSERT INTO public.business_invoice_data (name, document_number, description, created_date, updated_date, is_active, created_user_id, updated_user_id)
+										  values (@name, @document_number, @description, now(), now(), @is_active, @created_user_id, @updated_user_id) RETURNING id";
+
+							var businessInvoiceDataArguments = new
+							{
+								businessInvoiceData.name,
+								businessInvoiceData.document_number,
+								businessInvoiceData.description,
+								businessInvoiceData.is_active,
+								businessInvoiceData.created_user_id,
+								businessInvoiceData.updated_user_id
+							};
+
+							//connection.Open();
+							var businessInvoiceDataId = await connection.QuerySingleOrDefaultAsync<int>(businessInvoiceDataInsertQuery, businessInvoiceDataArguments);
+							//connection.Close();
+
+							var basicInfoPeopleBusinessInvoiceDataInsertQuery =
+							@"INSERT INTO public.basic_info_people_business_invoice_data (people_id, business_invoice_data_id, is_active, created_user_id, updated_user_id,
+											   created_date, updated_date)
+							values (@people_id, @business_invoice_data_id, @is_active, @created_user_id, @updated_user_id, now(), now())";
+
+							var basicInfoPeopleBusinessInvoiceDataArguments = new
+							{
+								people_id = peopleId,
+								business_invoice_data_id = businessInvoiceDataId,
+								is_active = true,
+								created_user_id = request.BasicInfoPeople.created_user_id,
+								updated_user_id = request.BasicInfoPeople.updated_user_id
+							};
+
+							var basicInfoPeopleBusinessInvoiceDataId = await connection.ExecuteAsync(basicInfoPeopleBusinessInvoiceDataInsertQuery, basicInfoPeopleBusinessInvoiceDataArguments);
+						}
+
+					}	
+
+
+
 
 					return Ok(new { clientId, peopleId });
 				}
 
-				return BadRequest("Failed to insert People.");
+				return BadRequest("Error al insertar la persona");
 			}
 			catch (Exception ex)
 			{
