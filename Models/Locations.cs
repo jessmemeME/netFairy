@@ -10,12 +10,12 @@ namespace FairyBE.Models
         [Required] public string? street1 { get; set; }
         [Required] public string? street2 { get; set; }
         [Required] public string? house_number { get; set; }
-        [Required] public string? floor { get; set; }
-        [Required] public string? building_name { get; set; }
+         public string? floor { get; set; }
+        public string? building_name { get; set; }
         [Required] public int latitude { get; set; }
         [Required] public int longitude { get; set; }
         [Required] public string? observation { get; set; }
-        [Required] public string? photo { get; set; }
+         public string? photo { get; set; }
         [Required] public bool is_main_location { get; set; }
         [Required] public int city_id { get; set; }
         [Required] public int departament_id { get; set; }

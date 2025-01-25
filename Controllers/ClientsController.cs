@@ -71,7 +71,7 @@ namespace FairyBE.Controllers
             }
         }
 		///---------------------
-		[HttpPost("RegisterClientsWithPeopleStep1")]
+		[HttpPost("RegisterClientsAllForm")]
 		public async Task<IActionResult> RegisterClientsAllForm([FromBody] RegisterClientsWithPeopleRequest request)
 		{
 			int peopleId = -1;
@@ -139,8 +139,8 @@ namespace FairyBE.Controllers
                                           latitude, longitude, observation, photo, is_main_location, created_date,
                                           updated_date, is_active, city_id, country_id, created_user_id, departament_id,
                                           id_location_type_id, updated_user_id)
-										  values (@name, @description, @street1, @street2, @house_number, @floor, @building_name,
-										  @latitude, @longitude, @observation, @photo, @is_main_location, now(),
+										  values (@name, @description, @street1, @street2, @house_number, '1', 'test',
+										  @latitude, @longitude, @observation, ' ', @is_main_location, now(),
 										  now(), @is_active, @city_id, @country_id, @created_user_id, @departament_id,
 										  @id_location_type_id, @updated_user_id) RETURNING id";
 
@@ -151,16 +151,15 @@ namespace FairyBE.Controllers
 								location.street1,
 								location.street2,
 								location.house_number,
-								location.floor,
-								location.building_name,
+							
 								location.latitude,
 								location.longitude,
 								location.observation,
-								location.photo,
+								
 								location.is_main_location,
 								location.is_active,
 								location.city_id,
-								location.country_id,
+								location.country_id,	
 								location.created_user_id,
 								location.departament_id,
 								location.id_location_type_id,
@@ -198,20 +197,18 @@ namespace FairyBE.Controllers
 							contactInsertQuery = @"INSERT INTO public.contacts_contact_tb (name, contact_data, verificated_token, is_verified, is_main_contact, description,
 										  created_date, updated_date, is_active, table_name, contact_type_id, created_user_id,
 										  updated_user_id)
-										  values (@name, @contact_data, @verificated_token, @is_verified, @is_main_contact, @description, now(),
-										  now(), @is_active, @table_name, @contact_type_id, @created_user_id, @updated_user_id) RETURNING id";
+										  values (@name, @contact_data, true, @is_verified, @is_main_contact, @description, now(),
+										  now(), @is_active, ' ', 1, @created_user_id, @updated_user_id) RETURNING id";
 
 							var contactArguments = new
 							{
 								contact.name,
 								contact.contact_data,
-								contact.verificated_token,
+								
 								contact.is_verified,
 								contact.is_main_contact,
 								contact.description,
 								contact.is_active,
-								contact.table_name,
-								contact.contact_type_id,
 								contact.created_user_id,
 								contact.updated_user_id
 							};
@@ -270,14 +267,14 @@ namespace FairyBE.Controllers
 							//connection.Close();
 
 							var basicInfoPeopleBusinessInvoiceDataInsertQuery =
-							@"INSERT INTO public.basic_info_people_business_invoice_data (people_id, business_invoice_data_id, is_active, created_user_id, updated_user_id,
+							@"INSERT INTO public.basic_info_people_invoice_data (people_id, invoice_data_id, is_active, created_user_id, updated_user_id,
 											   created_date, updated_date)
-							values (@people_id, @business_invoice_data_id, @is_active, @created_user_id, @updated_user_id, now(), now())";
+							values (@people_id, @invoice_data_id, @is_active, @created_user_id, @updated_user_id, now(), now())";
 
 							var basicInfoPeopleBusinessInvoiceDataArguments = new
 							{
 								people_id = peopleId,
-								business_invoice_data_id = businessInvoiceDataId,
+								invoice_data_id = businessInvoiceDataId,
 								is_active = true,
 								created_user_id = request.BasicInfoPeople.created_user_id,
 								updated_user_id = request.BasicInfoPeople.updated_user_id
