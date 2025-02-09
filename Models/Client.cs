@@ -17,4 +17,15 @@ namespace FairyBE.Models
         [Required] public int updated_user_id { get; set; }
 
     }
+
+	public class RegisterClientsWithPeopleRequest
+	{
+		public Client ClientsClient { get; set; }
+		public People BasicInfoPeople { get; set; }
+		public IEnumerable<Contacts>? Contacts { get; set; }
+		public IEnumerable<Locations>? Locations { get; set; }
+		public IEnumerable<BusinessInvoiceData>? BusinessInvoiceData { get; set; }
+
+
+	}
 }

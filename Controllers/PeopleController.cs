@@ -64,10 +64,14 @@ namespace FairyBE.Controllers
             try
             {
                 connection.Open();
-                result = await connection.ExecuteAsync(insertQuery, queryArguments);
-                connection.Close();
-                return Ok(result);
-            }
+				// Aquí usamos QuerySingleOrDefaultAsync para obtener el ID
+				var id = await connection.QuerySingleOrDefaultAsync<int>(insertQuery, queryArguments);
+
+				connection.Close();
+
+				// Retornar el ID insertado
+				return Ok(new { id = id });
+			}
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -177,12 +181,133 @@ namespace FairyBE.Controllers
 
             }
         }
-        #endregion
-        #endregion
+		#endregion
 
-        #region PeopleContact
-        #region Register PeopleContact
-        [HttpPost("RegisterPeopleContact")]
+		#region
+		[HttpGet("GetPeoplePaginated")]
+		public async Task<IActionResult> GetPeoplePaginated([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+		{
+			try
+			{
+				if (page < 1 || pageSize < 1)
+				{
+					return BadRequest("Page and pageSize must be greater than 0.");
+				}
+
+				int offset = (page - 1) * pageSize;
+
+				string query = @"
+            SELECT * 
+            FROM basic_info_people 
+            ORDER BY id 
+            LIMIT @pageSize OFFSET @offset";
+
+				var people = await connection.QueryAsync<People>(query, new { pageSize, offset });
+
+				return Ok(people);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+		#endregion
+		#region
+		[HttpGet("SearchPeople")]
+		public async Task<IActionResult> SearchPeople(
+		[FromQuery] string? document_number = null,
+		[FromQuery] int page = 1,
+		[FromQuery] int pageSize = 10)
+		{
+			try
+			{
+				if (page < 1 || pageSize < 1)
+				{
+					return BadRequest("Page and pageSize must be greater than 0.");
+				}
+
+				int offset = (page - 1) * pageSize;
+
+				string query = @"
+            SELECT * 
+            FROM basic_info_people 
+            WHERE (@document_number IS NULL OR document_number LIKE @document_number)
+            ORDER BY id 
+            LIMIT @pageSize OFFSET @offset";
+
+				var people = await connection.QueryAsync<People>(query, new
+				{
+					document_number = string.IsNullOrEmpty(document_number) ? null : $"%{document_number}%",
+					pageSize,
+					offset
+				});
+
+				return Ok(people);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+		#endregion
+		#region
+		[HttpGet("PeobleById")]
+		public async Task<IActionResult> PeobleByDocumentNumber([FromQuery] string id)
+		{
+
+			try
+			{
+				string commandText = "SELECT * FROM   basic_info_people where document_number=@document_number and id=@id";
+				var queryArguments = new
+				{
+					id
+				};
+				connection.Open();
+				var groups = await connection.QueryAsync<People>(commandText);
+				connection.Close();
+				return Ok(groups);
+
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+
+			}
+		}
+		#endregion
+
+		#region
+		[HttpGet("PeobleByDocumentNumber")]
+		public async Task<IActionResult> PeobleByDocumentNumber([FromQuery] string document_number, [FromQuery] int document_type_id)
+		{
+
+			try
+			{
+				string commandText = "SELECT * FROM   basic_info_people where document_number=@document_number and document_type_id=@document_type_id";
+				var queryArguments = new
+				{
+					document_number,
+					document_type_id
+				};
+				connection.Open();
+				var groups = await connection.QueryAsync<People>(commandText);
+				connection.Close();
+				return Ok(groups);
+
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+
+			}
+		}
+		#endregion
+
+		#endregion
+
+		#region PeopleContact
+		#region Register PeopleContact
+		[HttpPost("RegisterPeopleContact")]
         public async Task<IActionResult> RegisterPeopleContactAsync([FromBody] PeopleContact basic_info_people_contact)
         {
 

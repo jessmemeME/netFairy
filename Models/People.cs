@@ -11,7 +11,7 @@ namespace FairyBE.Models
         [Required] public string? document_number { get; set; }
         [Required] public string? photo_people { get; set; }
         [Required] public DateTime date_of_birth { get; set; }
-        [Required] public DateTime date_of_death { get; set; }
+        public DateTime date_of_death { get; set; }
         [Required] public string? description { get; set; }
         [Required] public DateTime created_date { get; set; }
         [Required] public DateTime updated_date { get; set; }
