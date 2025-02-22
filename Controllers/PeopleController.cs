@@ -9,6 +9,8 @@ using Dapper; //framework que nos permite hacer las consultas SQL
 using Npgsql;//framework que nos permite conectarnos al POSTGRESQL
 using Microsoft.Extensions.Configuration;
 using System.Web.Http.Cors;
+using System.Diagnostics;
+using System.Text.Json;
 
 namespace FairyBE.Controllers
 {
@@ -257,7 +259,7 @@ namespace FairyBE.Controllers
 
 			try
 			{
-				string commandText = "SELECT * FROM   basic_info_people where document_number=@document_number and id=@id";
+			 	string commandText = @"SELECT * FROM   basic_info_people where id=@id";
 				var queryArguments = new
 				{
 					id
@@ -283,16 +285,18 @@ namespace FairyBE.Controllers
 
 			try
 			{
-				string commandText = "SELECT * FROM   basic_info_people where document_number=@document_number and document_type_id=@document_type_id";
+				string query = @"SELECT * FROM basic_info_people where document_number=@document_number and document_type_id=@document_type_id";
 				var queryArguments = new
 				{
-					document_number,
-					document_type_id
+					document_number= document_number,
+					document_type_id= document_type_id
 				};
 				connection.Open();
-				var groups = await connection.QueryAsync<People>(commandText);
+				Debug.WriteLine(query);
+				Debug.WriteLine(queryArguments.ToString());
+				var result = await connection.QueryAsync<People>(query,queryArguments);
 				connection.Close();
-				return Ok(groups);
+				return Ok(result);
 
 			}
 			catch (Exception ex)

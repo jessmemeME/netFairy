@@ -325,7 +325,7 @@ namespace FairyBE.Controllers
 
             try
             {
-                string commandText = "SELECT * FROM   basic_info_document_type";
+                string commandText = "SELECT * FROM   basic_info_document_type order by id";
                 connection.Open();
                 var groups = await connection.QueryAsync<DocumentType>(commandText);
                 connection.Close();
