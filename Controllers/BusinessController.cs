@@ -153,12 +153,37 @@ namespace FairyBE.Controllers
 
             }
         }
-        #endregion
-        #endregion
+		#endregion
+		#region BusinessInvoiceDataByRuc
+		[HttpGet("BusinessInvoiceDataByRuc")]
+		public async Task<IActionResult> BusinessInvoiceDataByRuc([FromQuery] string document_number)
+		{
 
-        #region BusinessColor
-        #region Register BusinessColor
-        [HttpPost("RegisterBusinessColor")]
+			try
+			{
+				string commandText = "SELECT * FROM   business_invoice_data WHERE document_number = @document_number";
+				var queryArguments = new
+				{
+					document_number = document_number
+				};
+				connection.Open();
+				var groups = await connection.QueryAsync<BusinessInvoiceData>(commandText,queryArguments);
+				connection.Close();
+				return Ok(groups);
+
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+
+			}
+		}
+		#endregion
+		#endregion
+
+		#region BusinessColor
+		#region Register BusinessColor
+		[HttpPost("RegisterBusinessColor")]
         public async Task<IActionResult> RegisterBusinessColorAsync([FromBody] BusinessColor business_color)
         {
 
