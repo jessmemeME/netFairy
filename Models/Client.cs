@@ -25,7 +25,11 @@ namespace FairyBE.Models
 		public IEnumerable<Contacts>? Contacts { get; set; }
 		public IEnumerable<Locations>? Locations { get; set; }
 		public IEnumerable<BusinessInvoiceData>? BusinessInvoiceData { get; set; }
+	}
 
-
+	public class ClientPeopleModel
+	{
+		public Client Client { get; set; }
+		public People People { get; set; }
 	}
 }

@@ -80,7 +80,7 @@ namespace FairyBE.Controllers
 			INSERT INTO basic_info_people 
 			(first_name, last_name, document_number, description, created_date, updated_date, is_active, age_group_id, created_user_id, document_type_id, gender_id, type_of_diner_id, updated_user_id) 
 			VALUES 
-			(@first_name, @last_name, @document_number, @description, now(), now(), @is_active, @age_group_id, @created_user_id, @document_type_id, @gender_id, @type_of_diner_id, @updated_user_id) 
+			(@first_name, @last_name, @	, @description, now(), now(), @is_active, @age_group_id, @created_user_id, @document_type_id, @gender_id, @type_of_diner_id, @updated_user_id) 
 			RETURNING id";
 
 			var peopleQueryArguments = new
@@ -391,6 +391,38 @@ namespace FairyBE.Controllers
 
             }
         }
-    }
+		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		[HttpGet("ListAllClientsWithPeoplePag")]
+		public async Task<IActionResult> ListAllClientsWithPeoplePag([FromQuery] int page, [FromQuery] int pageSize)
+		{
+			try
+			{
+				string commandText = @"SELECT cc.*, bp.*
+						FROM clients_client  cc
+						INNER JOIN basic_info_people bp ON cc.people_id = bp.id 
+						ORDER BY cc.id 
+						LIMIT @pageSize OFFSET @page";
+				connection.Open();
+				var groups = await connection.QueryAsync<Client, People, ClientPeopleModel>(
+						commandText,
+						(client, people) => new ClientPeopleModel { Client = client, People = people },
+						new { page = page, pageSize = pageSize },
+						splitOn: "people_id"
+					);
+				connection.Close();
+				return Ok(groups);
+
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+				throw ex;
+
+			}
+		}
+
+
+
+	}
 }
 
