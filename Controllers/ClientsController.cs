@@ -397,17 +397,16 @@ namespace FairyBE.Controllers
 		{
 			try
 			{
-				string commandText = @"SELECT cc.*, bp.*
+				string commandText = @"SELECT cc.id,bp.first_name,bp.last_name, bdt.name as document_type, bp.document_number, cc.type as status
 						FROM clients_client  cc
 						INNER JOIN basic_info_people bp ON cc.people_id = bp.id 
+						join basic_info_document_type bdt on bp.document_type_id = bdt.id
 						ORDER BY cc.id 
 						LIMIT @pageSize OFFSET @page";
 				connection.Open();
-				var groups = await connection.QueryAsync<Client, People, ClientPeopleModel>(
+				var groups = await connection.QueryAsync<ClientPageResum>(
 						commandText,
-						(client, people) => new ClientPeopleModel { Client = client, People = people },
-						new { page = page, pageSize = pageSize },
-						splitOn: "people_id"
+						new { page = page, pageSize = pageSize }
 					);
 				connection.Close();
 				return Ok(groups);

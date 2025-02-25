@@ -31,5 +31,18 @@ namespace FairyBE.Models
 	{
 		public Client Client { get; set; }
 		public People People { get; set; }
+
+		public DocumentType DocumentType { get; set; }
+	}
+
+	public class ClientPageResum
+	{
+		public int Id { get; set; }
+		public string First_name { get; set; }
+		public string Last_name { get; set; }
+		public string Document_number { get; set; }
+		public string Document_type { get; set; }
+		public string status { get; set; }
+
 	}
 }
