@@ -420,6 +420,77 @@ namespace FairyBE.Controllers
 			}
 		}
 
+		#region getClietntdetail
+		[HttpGet("{clientId}")]
+		public async Task<IActionResult> GetClientDetails(int clientId)
+		{
+			try
+			{
+				connection.Open();
+
+				// 1. Obtener el registro del cliente
+				string clientQuery = @"SELECT * FROM clients_client WHERE id = @clientId";
+				var client = await connection.QuerySingleOrDefaultAsync<Client>(clientQuery, new { clientId });
+				if (client == null)
+					return NotFound($"No se encontró cliente con id {clientId}");
+
+				// 2. Obtener la información básica de la persona asociada al cliente
+				string peopleQuery = @"SELECT * FROM basic_info_people WHERE id = @peopleId";
+				var basicInfoPeople = await connection.QuerySingleOrDefaultAsync<People>(
+					peopleQuery, new { peopleId = client.people_id });
+
+				// 3. Obtener las ubicaciones asociadas a la persona
+				string locationsQuery = @"
+            SELECT l.*
+            FROM locations_location_tb l
+            INNER JOIN basic_info_people_location bp ON l.id = bp.location_tb_id
+            WHERE bp.people_id = @peopleId";
+				var locations = (await connection.QueryAsync<Locations>(
+					locationsQuery, new { peopleId = client.people_id })).ToList();
+
+				// 4. Obtener los contactos asociados a la persona
+				string contactsQuery = @"
+            SELECT ct.*
+            FROM contacts_contact_tb ct
+            INNER JOIN basic_info_people_contact bc ON ct.id = bc.contact_tb_id
+            WHERE bc.people_id = @peopleId";
+				var contacts = (await connection.QueryAsync<Contacts>(
+					contactsQuery, new { peopleId = client.people_id })).ToList();
+
+				// 5. Obtener los datos de factura asociados a la persona
+				string invoiceDataQuery = @"
+            SELECT bid.*
+            FROM business_invoice_data bid
+            INNER JOIN basic_info_people_invoice_data bi ON bid.id = bi.invoice_data_id
+            WHERE bi.people_id = @peopleId";
+				var invoiceData = (await connection.QueryAsync<BusinessInvoiceData>(
+					invoiceDataQuery, new { peopleId = client.people_id })).ToList();
+
+				// Construir el objeto de respuesta respetando los modelos
+				var result = new
+				{
+					ClientsClient = client,
+					BasicInfoPeople = basicInfoPeople,
+					Locations = locations,
+					Contacts = contacts,
+					BusinessInvoiceData = invoiceData
+				};
+
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			finally
+			{
+				connection.Close();
+			}
+		}
+
+
+		#endregion
+
 
 
 	}
