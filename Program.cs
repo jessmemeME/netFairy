@@ -1,4 +1,5 @@
 //Este archivo es para configurar todo!! Es el ARCHIVO INICIAL - NO TOCAR!!
+using FairyBE.Utilitys;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
@@ -25,6 +26,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Configuration.AddJsonFile("appsettings.json");
 
+builder.Services.AddHttpClient<EmailService>();
 
 var app = builder.Build();
 

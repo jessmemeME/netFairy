@@ -44,6 +44,9 @@ namespace FairyBE.Controllers
                 connection.Open();
                 var queryResult = await connection.QueryFirstAsync<ResponseLogin>(query, queryArguments);
                 ReturnLogin resultObject = JsonConvert.DeserializeObject<ReturnLogin>(queryResult.auth_login);
+                resultObject.token = "toke254654646546" +
+                    "" +
+                    "";
                 return Ok(resultObject);
             } 
             catch(Exception ex) { 
@@ -128,7 +131,7 @@ namespace FairyBE.Controllers
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        private void SendEmail(string recipientEmail, string emailSubject, string emailMessage)
+        private void   SendEmail(string recipientEmail, string emailSubject, string emailMessage)
         {
 
             var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)

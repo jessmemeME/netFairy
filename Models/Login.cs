@@ -12,6 +12,7 @@
     public class ReturnLogin {
         public required string  mensaje { get; set; }
         public required string respuesta { get; set; }
+        public string token { get; set; }
     }
     public class Email { 
         public string email { get; set; }

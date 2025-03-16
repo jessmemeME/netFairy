@@ -17,6 +17,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
+using FairyBE.Utilitys;
 
 namespace FairyBE.Controllers
 {
@@ -27,13 +28,14 @@ namespace FairyBE.Controllers
         #region Variables
         private NpgsqlConnection connection;//Atributo para conectar con Postgresql
         public IConfiguration Configuration { get; }//Se inicializa la interfaz de configuracion
+        private readonly EmailService _emailService;
         #endregion
         #region Constructor
 
         //CREAMOS UN CONSTRUCTOR DE LA CLASE PARA INICIALIZAR LA CONEXION A LA BD
-        public AccountsController(IConfiguration config)
+        public AccountsController(IConfiguration config, EmailService emailService)
         {
-
+            _emailService = emailService;
             //Se asigna la interfaz de configuraciion a la configuracion local
             Configuration = config;
             // Se obtiene la cadena de conexion alojada en el json de configuracion
@@ -52,30 +54,16 @@ namespace FairyBE.Controllers
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private void SendEmail(string recipientEmail, string emailSubject, string emailMessage)
+        private async Task SendEmail(string recipientEmail, string emailSubject, string emailMessage)
         {
+            bool result = await _emailService.SendEmailAsync(recipientEmail, recipientEmail, emailSubject, emailMessage);
 
-            /*var emailSettings = Configuration.GetSection("EmailSettings");
-            var smtpServer = emailSettings["SmtpServer"];
-            var smtpPort = int.Parse(emailSettings["SmtpPort"]);
-            var smtpUsername = emailSettings["SmtpUsername"];
-            var smtpPassword = emailSettings["SmtpPassword"];
-            var senderEmail = emailSettings["SenderEmail"];
-              var smtpClient = new SmtpClient(smtpServer)
-              {
-                  Port = smtpPort,
-                  Credentials = new NetworkCredential(smtpUsername, smtpPassword),
-                  EnableSsl = true,
-              };
-              var mailMessage = new MailMessage(senderEmail, recipientEmail, emailSubject, emailMessage);
-              await smtpClient.SendMailAsync(mailMessage);*/
-            var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
-            {
-                Credentials = new NetworkCredential("091141768341f1", "ef884dc1011a0e"),
-                EnableSsl = true
-            };
-            client.Send("from@example.com", "to@example.com", emailSubject, emailMessage);
+            if (result)
 
+                if (result)
+                Console.WriteLine("✅ Correo enviado correctamente.");
+            else
+                Console.WriteLine("❌ Error al enviar el correo.");
         }
         #endregion
         #region Accounts
@@ -83,49 +71,69 @@ namespace FairyBE.Controllers
         [HttpPost("RegisterAccounts")]
         public async Task<IActionResult> RegisterAccountsAsync([FromBody] Accounts accounts)
         {
-            int result = -1;
-            string insertQuery = "INSERT INTO accounts_user (password, last_login, is_superuser, email, is_staff, is_active, date_joined, last_updated, auth_code) VALUES " +
-                "(@password, now(), @is_superuser, @email, @is_staff, @is_active, now(), now(), @auth_code) RETURNING Id";
+            string insertQuery = @"
+        INSERT INTO accounts_user 
+        (password, last_login, is_superuser, email, is_staff, is_active, date_joined, last_updated, auth_code) 
+        VALUES (@password, now(), @is_superuser, @email, @is_staff, @is_active, now(), now(), @auth_code) 
+        RETURNING Id";
 
             string authenticationCode = GenerateRandomCode();
             var queryArguments = new
             {
                 password = accounts.password,
-                last_login = accounts.last_login,
                 is_superuser = accounts.is_superuser,
                 email = accounts.email,
                 is_staff = accounts.is_staff,
                 is_active = accounts.is_active,
-                date_joined = accounts.date_joined,
-                last_updated = accounts.last_updated,
-                auth_code = authenticationCode,
-
+                auth_code = authenticationCode
             };
 
             try
             {
                 connection.Open();
-                result = await connection.ExecuteAsync(insertQuery, queryArguments);
 
-                // Generate authentication code
-               
+                using var transaction = await connection.BeginTransactionAsync();
 
-                // Send email with authentication code
+                int userId;
+                try
+                {
+                    // Intentar insertar usuario y obtener el ID
+                    userId = await connection.QuerySingleAsync<int>(insertQuery, queryArguments, transaction);
+
+                    // Si llegamos aquí, confirmamos la transacción
+                    await transaction.CommitAsync();
+                }
+                catch (Exception dbEx)
+                {
+                    await transaction.RollbackAsync();
+                    return BadRequest(new { Result = -1, Message = $"Error en la base de datos: {dbEx.Message}" });
+                }
+
+                // Enviar correo solo si el usuario fue insertado correctamente
                 string recipientEmail = accounts.email;
                 string emailSubject = "Authentication Code";
-                string emailMessage = $"Su codigo de autenticación es: {authenticationCode}";
+                string emailMessage = $"Su código de autenticación es: {authenticationCode}";
 
-                SendEmail(recipientEmail, emailSubject, emailMessage);
-                // Devuelve un mensaje específico en caso de éxito
-                return Ok(new { Result = result, Message = "Se envió el correo con éxito." });
+                bool emailSent = await _emailService.SendEmailAsync(recipientEmail, accounts.email, emailSubject, emailMessage);
+
+                if (!emailSent)
+                {
+                    return BadRequest(new { Result = userId, Message = "Usuario creado, pero hubo un error al enviar el correo." });
+                }
+
+                return Ok(new { Result = userId, Message = "Usuario registrado y correo enviado con éxito." });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { Result = -1, Message = "Error al enviar el correo electronico." });
-
-            }finally { connection.Close(); }
-
+                return BadRequest(new { Result = -1, Message = $"Error inesperado: {ex.Message}" });
+            }
+            finally {
+                connection.Close();
+            }
         }
+
+
+
         #endregion
         #region ListAllAccounts
         [HttpGet("ListAllAccounts")]
