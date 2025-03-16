@@ -161,3 +161,7 @@ C:\Users\Jess\OneDrive\Documentos\Tesis\netFairy\obj\Debug\net8.0\refint\FairyBE
 C:\Users\Jess\OneDrive\Documentos\Tesis\netFairy\obj\Debug\net8.0\FairyBE.pdb
 C:\Users\Jess\OneDrive\Documentos\Tesis\netFairy\obj\Debug\net8.0\FairyBE.genruntimeconfig.cache
 C:\Users\Jess\OneDrive\Documentos\Tesis\netFairy\obj\Debug\net8.0\ref\FairyBE.dll
+C:\Users\Jess\OneDrive\Documentos\Tesis\netFairy\bin\Debug\net8.0\FairyBE.staticwebassets.endpoints.json
+C:\Users\Jess\OneDrive\Documentos\Tesis\netFairy\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Jess\OneDrive\Documentos\Tesis\netFairy\obj\Debug\net8.0\staticwebassets\msbuild.FairyBE.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\Jess\OneDrive\Documentos\Tesis\netFairy\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

@@ -1089,6 +1089,54 @@
   },
   {
     "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "DeleteBusinessTax",
+    "RelativePath": "Business/DeleteBusinessTax",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_tax",
+        "Type": "FairyBE.Models.BusinessTax",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "DeleteBusinessTaxType",
+    "RelativePath": "Business/DeleteBusinessTaxType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_tax_type",
+        "Type": "FairyBE.Models.BusinessTaxType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "DeleteBusinessTaxTypeXCountry",
+    "RelativePath": "Business/DeleteBusinessTaxTypeXCountry",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_tax_type_id_country",
+        "Type": "FairyBE.Models.BusinessTaxTypeXCountry",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
     "Method": "ListAllBusinessColors",
     "RelativePath": "Business/ListAllBusinessColors",
     "HttpMethod": "GET",
@@ -1151,6 +1199,36 @@
     "ContainingType": "FairyBE.Controllers.BusinessController",
     "Method": "ListAllBusinessServices",
     "RelativePath": "Business/ListAllBusinessServices",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "ListAllBusinessTaxTypeXCountrys",
+    "RelativePath": "Business/ListAllBusinessTaxTypeXCountrys",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "ListAllBusinessTaxTypes",
+    "RelativePath": "Business/ListAllBusinessTaxTypes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "ListAllBusinessTaxs",
+    "RelativePath": "Business/ListAllBusinessTaxs",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1271,6 +1349,54 @@
   },
   {
     "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "RegisterBusinessTaxAsync",
+    "RelativePath": "Business/RegisterBusinessTax",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_tax",
+        "Type": "FairyBE.Models.BusinessTax",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "RegisterBusinessTaxTypeAsync",
+    "RelativePath": "Business/RegisterBusinessTaxType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_tax_type",
+        "Type": "FairyBE.Models.BusinessTaxType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "RegisterBusinessTaxTypeXCountryAsync",
+    "RelativePath": "Business/RegisterBusinessTaxTypeXCountry",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_tax_type_id_country",
+        "Type": "FairyBE.Models.BusinessTaxTypeXCountry",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
     "Method": "UpdateBusinessColor",
     "RelativePath": "Business/UpdateBusinessColor",
     "HttpMethod": "POST",
@@ -1382,6 +1508,54 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "UpdateBusinessTax",
+    "RelativePath": "Business/UpdateBusinessTax",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_tax",
+        "Type": "FairyBE.Models.BusinessTax",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "UpdateBusinessTaxType",
+    "RelativePath": "Business/UpdateBusinessTaxType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_tax_type",
+        "Type": "FairyBE.Models.BusinessTaxType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.BusinessController",
+    "Method": "UpdateBusinessTaxTypeXCountry",
+    "RelativePath": "Business/UpdateBusinessTaxTypeXCountry",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "business_tax_type_id_country",
+        "Type": "FairyBE.Models.BusinessTaxTypeXCountry",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FairyBE.Controllers.ClientsController",
     "Method": "DeleteClients",
     "RelativePath": "Clients/DeleteClients",
@@ -1400,7 +1574,7 @@
   {
     "ContainingType": "FairyBE.Controllers.ClientsController",
     "Method": "ListAllClientss",
-    "RelativePath": "Clients/ListAllClientss",
+    "RelativePath": "Clients/ListAllClients",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1440,8 +1614,296 @@
     "ReturnTypes": []
   },
   {
-<<<<<<< Updated upstream
-=======
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "DeleteCompany",
+    "RelativePath": "Company/DeleteCompany",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company",
+        "Type": "FairyBE.Models.Company",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "DeleteCompanyContact",
+    "RelativePath": "Company/DeleteCompanyContact",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_contact",
+        "Type": "FairyBE.Models.CompanyContact",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "DeleteCompanyInvoiceData",
+    "RelativePath": "Company/DeleteCompanyInvoiceData",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_invoice_data",
+        "Type": "FairyBE.Models.CompanyInvoiceData",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "DeleteCompanyLocation",
+    "RelativePath": "Company/DeleteCompanyLocation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_location",
+        "Type": "FairyBE.Models.CompanyLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "DeleteCompanyRelationshipBusiness",
+    "RelativePath": "Company/DeleteCompanyRelationshipBusiness",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_relationship_business",
+        "Type": "FairyBE.Models.CompanyRelationshipBusiness",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "ListAllCompanyContacts",
+    "RelativePath": "Company/ListAllCompanyContacts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "ListAllCompanyInvoiceDatas",
+    "RelativePath": "Company/ListAllCompanyInvoiceDatas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "ListAllCompanyLocations",
+    "RelativePath": "Company/ListAllCompanyLocations",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "ListAllCompanyRelationshipBusinesss",
+    "RelativePath": "Company/ListAllCompanyRelationshipBusinesss",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "ListAllCompanys",
+    "RelativePath": "Company/ListAllCompanys",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "RegisterCompanyAsync",
+    "RelativePath": "Company/RegisterCompany",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company",
+        "Type": "FairyBE.Models.Company",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "RegisterCompanyContactAsync",
+    "RelativePath": "Company/RegisterCompanyContact",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_contact",
+        "Type": "FairyBE.Models.CompanyContact",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "RegisterCompanyInvoiceDataAsync",
+    "RelativePath": "Company/RegisterCompanyInvoiceData",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_invoice_data",
+        "Type": "FairyBE.Models.CompanyInvoiceData",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "RegisterCompanyLocationAsync",
+    "RelativePath": "Company/RegisterCompanyLocation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_location",
+        "Type": "FairyBE.Models.CompanyLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "RegisterCompanyRelationshipBusinessAsync",
+    "RelativePath": "Company/RegisterCompanyRelationshipBusiness",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_relationship_business",
+        "Type": "FairyBE.Models.CompanyRelationshipBusiness",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "UpdateCompany",
+    "RelativePath": "Company/UpdateCompany",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company",
+        "Type": "FairyBE.Models.Company",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "UpdateCompanyContact",
+    "RelativePath": "Company/UpdateCompanyContact",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_contact",
+        "Type": "FairyBE.Models.CompanyContact",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "UpdateCompanyInvoiceData",
+    "RelativePath": "Company/UpdateCompanyInvoiceData",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_invoice_data",
+        "Type": "FairyBE.Models.CompanyInvoiceData",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "UpdateCompanyLocation",
+    "RelativePath": "Company/UpdateCompanyLocation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_location",
+        "Type": "FairyBE.Models.CompanyLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.CompanyController",
+    "Method": "UpdateCompanyRelationshipBusiness",
+    "RelativePath": "Company/UpdateCompanyRelationshipBusiness",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "basic_info_company_relationship_business",
+        "Type": "FairyBE.Models.CompanyRelationshipBusiness",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FairyBE.Controllers.LoginController",
     "Method": "Login",
     "RelativePath": "Login/Login",
@@ -1458,7 +1920,54 @@
     "ReturnTypes": []
   },
   {
->>>>>>> Stashed changes
+    "ContainingType": "FairyBE.Controllers.LoginController",
+    "Method": "ResetCode",
+    "RelativePath": "Login/ResetCode",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.LoginController",
+    "Method": "Validated",
+    "RelativePath": "Login/Validated",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "FairyBE.Models.Email",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FairyBE.Controllers.LoginController",
+    "Method": "VerifyCode",
+    "RelativePath": "Login/VerifyCode",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "FairyBE.Models.Email",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FairyBE.Controllers.PeopleController",
     "Method": "DeletePeople",
     "RelativePath": "People/DeletePeople",
