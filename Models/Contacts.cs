@@ -22,5 +22,28 @@ namespace FairyBE.Models
 		[Required] public long updated_user_id { get; set; }
 	}
 
+	public class ContactType
+	{
+		public long id { get; set; }
 
+		[Required]
+		public string? name { get; set; }
+
+		public string? description { get; set; }
+
+		[Required]
+		public DateTime created_date { get; set; }
+
+		[Required]
+		public DateTime updated_date { get; set; }
+
+		[Required]
+		public bool is_active { get; set; }
+
+		[Required]
+		public long created_user_id { get; set; }
+
+		[Required]
+		public long updated_user_id { get; set; }
+	}
 }

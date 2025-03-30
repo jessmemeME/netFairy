@@ -1186,14 +1186,33 @@ namespace FairyBE.Controllers
 
             }
         }
-        #endregion
-        #endregion
+		#endregion
+		#endregion
 
-        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		#region listAllContactType
+		[HttpGet("listAllContactType")]
+		public async Task<IActionResult> listAllContactType()
+		{
+			try
+			{
+				string commandText = "SELECT * FROM   contacts_contact_type order by 1";
+				connection.Open();
+				var groups = await connection.QueryAsync<ContactType>(commandText);
+				connection.Close();
+				return Ok(groups);
+
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		#endregion
 
 
 
-
-    }
+	}
 }
 
