@@ -9,12 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:4200", "http://localhost:5229").AllowAnyHeader()
-                            .AllowAnyMethod();
-                      });
+    options.AddPolicy("AllowFrontend",
+        policy => policy.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
 });
 
 
@@ -40,7 +38,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 
