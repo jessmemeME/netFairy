@@ -15,8 +15,9 @@ namespace FairyBE.Models
         [Required] public int created_user_id { get; set; }
         [Required] public int people_id { get; set; }
         [Required] public int updated_user_id { get; set; }
+		[Required] public string? type_people { get; set; }
 
-    }
+	}
 
 	public class RegisterClientsWithPeopleRequest
 	{

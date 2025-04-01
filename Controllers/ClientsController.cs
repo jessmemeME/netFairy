@@ -42,21 +42,21 @@ namespace FairyBE.Controllers
         public async Task<IActionResult> RegisterClientsAsync([FromBody] Client clients_client)
         {
             int result = -1;
-            string insertQuery = "INSERT INTO clients_client (id, type, name, description, is_confirmated, created_date, updated_date, is_active, created_user_id, people_id, updated_user_id) VALUES (@id,@type,@name,@description,@is_confirmated,@created_date,@updated_date,@is_active,@created_user_id,@people_id,@updated_user_id) RETURNING Id";
+            string insertQuery = @"INSERT INTO clients_client (type, name, description, is_confirmated, created_date, updated_date, is_active, created_user_id, people_id, updated_user_id,type_people) 
+							VALUES (@type,@name,@description,@is_confirmated,now(),now(),@is_active,@created_user_id,@people_id,@updated_user_id,@type_people) RETURNING Id";
             var queryArguments = new
             {
-                id = clients_client.id,
+                
                 type = clients_client.type,
                 name = clients_client.name,
                 description = clients_client.description,
                 is_confirmated = clients_client.is_confirmated,
-                created_date = clients_client.created_date,
-                updated_date = clients_client.updated_date,
                 is_active = clients_client.is_active,
                 created_user_id = clients_client.created_user_id,
                 people_id = clients_client.people_id,
-                updated_user_id = clients_client.updated_user_id
-            };
+                updated_user_id = clients_client.updated_user_id,
+				type_people=clients_client.type_people
+			};
             try
             {
                 connection.Open();
