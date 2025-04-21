@@ -22,6 +22,9 @@ namespace FairyBE.Models
         [Required] public int type_of_diner_id { get; set; }
         [Required] public int created_user_id { get; set; }
         [Required] public int updated_user_id { get; set; }
+		//religion
+		[Required] public int religion_id { get; set; }
+
         /*
             "id"	"bigint"
             "first_name"	"character varying"

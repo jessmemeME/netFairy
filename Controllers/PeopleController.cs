@@ -43,7 +43,7 @@ namespace FairyBE.Controllers
 		{
 
 			int result = -1;
-			string insertQuery = "INSERT INTO basic_info_people (first_name, last_name, document_number, photo_people, date_of_birth, date_of_death, description, created_date, updated_date, is_active, age_group_id, created_user_id, document_type_id, gender_id, type_of_diner_id, updated_user_id) VALUES (@first_name,@last_name,@document_number,@photo_people,@date_of_birth,@date_of_death,@description,now(),now(),@is_active,@age_group_id,@created_user_id,@document_type_id,@gender_id,@type_of_diner_id,@updated_user_id) RETURNING id";
+			string insertQuery = "INSERT INTO basic_info_people (first_name, last_name, document_number, photo_people, date_of_birth, date_of_death, description, created_date, updated_date, is_active, age_group_id, created_user_id, document_type_id, gender_id, type_of_diner_id, updated_user_id) VALUES (@first_name,@last_name,@document_number,@photo_people,@date_of_birth,@date_of_death,@description,now(),now(),@is_active,@age_group_id,@created_user_id,@document_type_id,@gender_id,@type_of_diner_id,@updated_user_id,@religion_id) RETURNING id";
 			var queryArguments = new
 			{
 				first_name = basic_info_people.first_name,
@@ -61,7 +61,8 @@ namespace FairyBE.Controllers
 				document_type_id = basic_info_people.document_type_id,
 				gender_id = basic_info_people.gender_id,
 				type_of_diner_id = basic_info_people.type_of_diner_id,
-				updated_user_id = basic_info_people.updated_user_id
+				updated_user_id = basic_info_people.updated_user_id,
+				religion_id = basic_info_people.religion_id
 
 			};
 			try
