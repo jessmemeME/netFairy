@@ -406,7 +406,7 @@ namespace FairyBE.Controllers
 				connection.Open();
 				var groups = await connection.QueryAsync<ClientPageResum>(
 						commandText,
-						new { page = page, pageSize = pageSize }
+						new { page = page-1, pageSize = pageSize }
 					);
 				connection.Close();
 				return Ok(groups);
